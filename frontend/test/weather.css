@@ -1,0 +1,137 @@
+/* General Styles */
+body {
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(to right, #67b26f, #4ca2cd);
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+.container {
+  max-width: 500px;
+  margin: 50px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  color: black;
+}
+
+/* Add Crop Button */
+.add-btn {
+  background: #ff9800;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.add-btn:hover {
+  background: #e68900;
+}
+
+/* Filter & Sort Section */
+.filter-sort-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+  padding: 10px;
+  background: #f3f3f3;
+  border-radius: 8px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+select {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Crop List */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Crop Item */
+.crop-item {
+  background: #ffffff;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  text-align: left;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.crop-item:hover {
+  transform: scale(1.05);
+}
+
+/* Progress Bar */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress {
+  height: 100%;
+  background: #28a745;
+  width: 0%;
+  transition: width 0.5s;
+}
+
+/* Small Box-Style Delete Button */
+.delete-btn {
+  background: red;
+  color: white;
+  width: 25px;
+  height: 25px;
+  font-size: 12px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+}

@@ -1,0 +1,364 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alex+Brush&family=Dancing+Script:wght@400..700&display=swap");
+
+:root {
+  --body-color: #103713;
+  --page-color: white;
+  --nav-color: #134e2d;
+  --semicircle: #134e2d;
+  --highlights: #ff9505;
+  --card-color: black;
+  --main-font: "Playfair Display", serif;
+  --secondary-font: "Roboto", sans-serif;
+  --text-hfont: "Dancing Script", serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--body-color);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.pages {
+  margin-top: 1.5%;
+  width: 97%;
+  background-color: var(--page-color);
+  height: 95%;
+  border-radius: 3px;
+  box-shadow: 0px 4px 8px #09090933;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid black;
+}
+
+/* PAGE 1 START */
+
+nav {
+  background-color: var(--nav-color);
+  background-position: bottom;
+  background-size: unset;
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0px 4px 8px #10101033;
+  flex-direction: column;
+}
+
+.logo-area {
+  margin-top: 10px;
+  height: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.logo {
+  margin-right: 15px;
+  height: 100%;
+  width: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}
+a {
+  text-decoration: none;
+}
+
+.webname {
+  font-family: var(--main-font);
+  font-size: 21px;
+  color: var(--page-color);
+}
+
+.menu {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.menu a {
+  color: white;
+}
+
+.menu-item {
+  font-family: var(--secondary-font);
+  font-size: 12px;
+  height: 25px;
+  transition: 0.2s ease-in;
+  color: #ffffff;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+.menu-item:hover {
+  border-bottom: 2px solid black;
+  color: white;
+  animation: jump 1.2s steps(300) infinite;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(10deg);
+    transform: scale(1.1);
+  }
+  25% {
+    transform: translateY(10deg);
+    transform: scale(1.2);
+  }
+  50% {
+    transform: translateY(10deg);
+    transform: scale(1.1);
+  }
+  75% {
+    transform: translateY(10deg);
+    transform: scale(1.2);
+  }
+  100% {
+    transform: translateY(10deg);
+    transform: scale(1.1);
+  }
+}
+.content {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.content > section {
+  padding: 3%;
+}
+.profile {
+  width: 97%;
+  max-height: 99%;
+  overflow-y: auto;
+  padding: 1%;
+}
+
+.profile-sect {
+  height: 92%;
+}
+.gradient {
+  border-radius: 7px 7px 0px 0px;
+  height: 45%;
+  width: 100%;
+  background: linear-gradient(135deg, #4caf50, #8bc34a);
+}
+.name-loct {
+  width: 100%;
+  height: 49%;
+  box-shadow: 0px 2px 6px #09090933;
+  padding: 2.5%;
+}
+
+.prof-img {
+  left: 2.5%;
+  height: 87%;
+  top: 45%;
+  width: 15%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 100%;
+  border: 4px solid white;
+}
+.prof-img img {
+  object-fit: cover;
+  border-radius: 100%;
+  width: 100%;
+  height: 98%;
+  background-color: white;
+}
+
+.details {
+  margin-top: 2%;
+  padding: 2%;
+}
+.details h2 {
+  font-family: var(--text-hfont);
+  font-size: 270%;
+}
+.details p {
+  margin-top: 0.1%;
+  font-family: var(--secondary-font);
+  font-size: 80%;
+}
+.details p i,
+.contact i {
+  color: grey;
+}
+.contact {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  font-size: 90%;
+  font-family: var(--secondary-font);
+  padding-left: 1.5%;
+}
+.contact div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 2%;
+}
+.contact i {
+  margin-right: 2%;
+  font-size: 120%;
+}
+
+.about-me {
+  width: 100%;
+  height: 70%;
+  border: 2px solid black;
+  padding: 1.5%;
+  margin-top: 2.5%;
+}
+.about-me .h2 {
+  font-family: var(--text-hfont);
+  position: relative;
+  font-size: 160%;
+  bottom: 14%;
+  left: 1%;
+  background-color: white;
+  width: 15%;
+  text-align: center;
+}
+.about-me p {
+  font-family: var(--secondary-font);
+  font-size: 90%;
+}
+
+.bio {
+  position: relative;
+  bottom: 9%;
+  max-height: 92%;
+  overflow-y: auto;
+}
+.recents,
+.gallery {
+  width: 100%;
+  height: 90%;
+  border: 2px solid black;
+  padding: 1.5%;
+  margin-top: 5%;
+}
+.recents .h2,
+.gallery .h2 {
+  font-family: var(--text-hfont);
+  position: relative;
+  font-size: 160%;
+  bottom: 11%;
+  left: 1%;
+  background-color: white;
+  width: 13%;
+  text-align: center;
+}
+.posts {
+  margin-top: 2.5%;
+  height: 110%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.posts div {
+  border: 1px solid orange;
+  width: 49.5%;
+}
+.post-image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover; /* Prevents stretching */
+  object-position: center; /* Centers the image */
+}
+.post-texts {
+  padding: 2%;
+}
+.post-texts h1 {
+  text-align: center;
+  font-size: 150%;
+  margin-bottom: 2%;
+}
+.post-texts p {
+  padding: 1%;
+  height: 86%;
+}
+.posts-container {
+  position: relative;
+  bottom: 15%;
+  height: 85%;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.post-buttons {
+  position: absolute;
+  width: 100%;
+  height: 12%;
+  bottom: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.post-buttons button {
+  border: none;
+  margin: 0;
+  width: 4%;
+  height: 100%;
+  border-radius: 60%;
+  background-color: var(--body-color);
+  display: none;
+  color: white;
+}
+
+.posts-container:hover .nav-button {
+  display: block;
+}
+.nav-button:hover {
+  background: rgba(0, 0, 0, 0.644);
+}
+
+.gallery-container {
+  position: relative;
+  max-height: 95%;
+  overflow-y: auto;
+  bottom: 9%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.9%;
+  padding: 1%;
+  border: 1px solid blue;
+}
+
+.gallery-item {
+  width: 100%;
+  height: 150px;
+  object-fit: cover; /* Prevent stretching */
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  margin-top: 4%;
+}
+
+.gallery-item-wrapper {
+  position: relative;
+  display: inline-block;
+}

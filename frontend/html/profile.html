@@ -1,0 +1,356 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/profile.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <section class="contents">
+      <nav>
+        <div class="logo-area">
+          <div class="logo"><img src="../assets/home/logo3.png" alt="" /></div>
+          <a href="" class="webname">FarmHub</a>
+        </div>
+        <div class="pages">
+          <button>
+            <i class="fas fa-tachometer-alt"></i>
+            <a href="dashboard.html">Dashboard</a>
+          </button>
+          <button>
+            <i class="fas fa-bell"></i>
+            <a href="notifications.html">Notifications</a>
+          </button>
+
+          <button>
+            <i class="fas fa-tasks"></i>
+            <a href="tasks.html">Tasks</a>
+          </button>
+          <button>
+            <i class="fas fa-seedling"></i>
+            <a href="crops.html">Crops</a>
+          </button>
+          <button>
+            <i class="fas fa-warehouse"></i>
+            <a href="storage.html"> Storage</a>
+          </button>
+          <button class="active">
+            <i class="fas fa-user"></i>
+            <a href="profile.html">Profile</a>
+          </button>
+        </div>
+
+        <div class="signout">
+          <button>
+            <i class="fas fa-sign-out-alt"></i>
+            <a href="home.html">Logout</a>
+          </button>
+        </div>
+      </nav>
+      <section class="body">
+        <section class="user">
+          <h1>Alex Davis</h1>
+          <div class="notification"><i class="far fa-bell"></i></div>
+        </section>
+        <section class="content">
+          <section class="profile">
+            <section class="share">
+              <a href=""> Preview</a>
+              <button>Share Link</button>
+            </section>
+            <section class="profile-sect">
+              <div class="gradient">
+                <div class="prof-img">
+                  <img
+                    id="editable-image"
+                    src="../assets/profile/profileimg.jpg"
+                    alt="Editable"
+                    onerror="this.src='../assets/profile/profileimg.jpg'"
+                  />
+                  <div class="overlay" onclick="changeImage()">Edit Image</div>
+                </div>
+                <input
+                  type="file"
+                  id="image-input"
+                  accept="image/*"
+                  style="display: none"
+                />
+              </div>
+              <div class="name-loct">
+                <div class="details">
+                  <h2 id="name">Alex Davis</h2>
+                  <p>
+                    <i class="fa-solid fa-location-dot"></i
+                    ><span id="location"> Lagos, Nigeria</span>
+                  </p>
+                </div>
+                <div class="contact">
+                  <div class="email">
+                    <i class="fa-solid fa-envelope"></i
+                    ><span id="email">alexdavis@gmail.com</span>
+                  </div>
+                  <div class="phone">
+                    <i class="fa-solid fa-phone"></i
+                    ><span id="phone">090389230</span>
+                  </div>
+                  <div class="instagram">
+                    <i class="fa-brands fa-instagram"></i
+                    ><span id="instagram">alexfarms</span>
+                  </div>
+                  <div class="facebook">
+                    <i class="fa-brands fa-facebook"></i
+                    ><span id="facebook">alexfarms</span>
+                  </div>
+                </div>
+                <button id="e1" class="edit-button">Edit</button>
+              </div>
+              <div id="edit-form-container" class="hidden edit-form-container">
+                <form id="edit-form" class="edit-form">
+                  <label for="edit-name">Name:</label>
+                  <input
+                    type="text"
+                    id="edit-name"
+                    name="name"
+                    placeholder="Enter name"
+                  />
+
+                  <label for="edit-location">Location:</label>
+                  <input
+                    type="text"
+                    id="edit-location"
+                    name="location"
+                    placeholder="Enter location [State, Country]"
+                  />
+
+                  <label for="edit-email">Email:</label>
+                  <input
+                    type="email"
+                    id="edit-email"
+                    name="email"
+                    placeholder="Enter email"
+                  />
+
+                  <label for="edit-phone">Phone:</label>
+                  <input
+                    type="text"
+                    id="edit-phone"
+                    name="phone"
+                    placeholder="Enter phone number"
+                  />
+
+                  <label for="edit-instagram">Instagram:</label>
+                  <input
+                    type="text"
+                    id="edit-instagram"
+                    name="instagram"
+                    placeholder="Enter Instagram handle"
+                  />
+
+                  <label for="edit-facebook">Facebook:</label>
+                  <input
+                    type="text"
+                    id="edit-facebook"
+                    name="facebook"
+                    placeholder="Enter Facebook handle"
+                  />
+
+                  <button type="submit">Save</button>
+                  <button type="button" id="cancel-button">Cancel</button>
+                </form>
+              </div>
+            </section>
+            <section class="about-me">
+              <div class="h2"><h2>About Me</h2></div>
+              <div class="bio">
+                <p id="about-me-info">Hi I'm Alex Davis and i am a farmer</p>
+              </div>
+              <button id="e2" class="edit-button">Edit</button>
+              <div
+                id="editform-container-aboutme"
+                class="edit-form-container hidden"
+              >
+                <form id="form-aboutme" class="editform-aboutme">
+                  <label for="edit-name">About me:</label>
+                  <textarea
+                    name="about-me"
+                    id="edit-about-me"
+                    placeholder=" Enter About me"
+                    rows="5"
+                  ></textarea>
+                  <div class="aboutmeBtn">
+                    <button type="submit">Save</button>
+                    <button type="button" id="aboutme-cancel-button">
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </section>
+            <section class="recents">
+              <div class="h2"><h2>Recents</h2></div>
+              <button id="e3" class="edit-button">Edit Post</button>
+
+              <div class="posts-container">
+                <div class="post-buttons">
+                  <!-- Left arrow button -->
+                  <button class="nav-button prev-button">
+                    <i class="fa fa-chevron-left"></i>
+                  </button>
+                  <!-- Right arrow button -->
+                  <button class="nav-button next-button">
+                    <i class="fa fa-chevron-right"></i>
+                  </button>
+                </div>
+
+                <!-- Slideshow Content -->
+                <section class="posts">
+                  <div class="post-image">
+                    <img src="" alt="Recent Post" />
+                  </div>
+                  <div class="post-texts">
+                    <h1></h1>
+                    <p></p>
+                  </div>
+                </section>
+              </div>
+            </section>
+            <div
+              id="edit-form-container-posts"
+              class="edit-form-container hidden"
+            >
+              <form id="edit-posts-form">
+                <!-- Post Selection Buttons Inside Form -->
+                <div class="post-tabs">
+                  <button type="button" class="post-tab active" data-index="0">
+                    Post 1
+                  </button>
+                  <button type="button" class="post-tab" data-index="1">
+                    Post 2
+                  </button>
+                  <button type="button" class="post-tab" data-index="2">
+                    Post 3
+                  </button>
+                </div>
+
+                <!-- Post 1 Fields -->
+                <div class="post-fields" data-index="0">
+                  <label for="title-0">Title:</label>
+                  <input
+                    type="text"
+                    id="title-0"
+                    class="post-title"
+                    placeholder="Enter title"
+                  />
+
+                  <label for="desc-0">Description:</label>
+                  <textarea
+                    id="desc-0"
+                    class="post-description"
+                    placeholder="Enter description"
+                    rows="6"
+                  ></textarea>
+
+                  <label for="image-0">Picture:</label>
+                  <input
+                    type="file"
+                    id="image-0"
+                    class="post-image"
+                    accept="image/*"
+                  />
+                </div>
+
+                <!-- Post 2 Fields -->
+                <div class="post-fields" data-index="1">
+                  <label for="title-1">Title:</label>
+                  <input
+                    type="text"
+                    id="title-1"
+                    class="post-title"
+                    placeholder="Enter title"
+                  />
+
+                  <label for="desc-1">Description:</label>
+                  <textarea
+                    id="desc-1"
+                    class="post-description"
+                    placeholder="Enter description"
+                    rows="6"
+                  ></textarea>
+
+                  <label for="image-1">Picture:</label>
+                  <input
+                    type="file"
+                    id="image-1"
+                    class="post-image"
+                    accept="image/*"
+                  />
+                </div>
+
+                <!-- Post 3 Fields -->
+                <div class="post-fields" data-index="2">
+                  <label for="title-2">Title:</label>
+                  <input
+                    type="text"
+                    id="title-2"
+                    class="post-title"
+                    placeholder="Enter title"
+                  />
+
+                  <label for="desc-2">Description:</label>
+                  <textarea
+                    id="desc-2"
+                    class="post-description"
+                    placeholder="Enter description"
+                    rows="6"
+                  ></textarea>
+
+                  <label for="image-2">Picture:</label>
+                  <input
+                    type="file"
+                    id="image-2"
+                    class="post-image"
+                    accept="image/*"
+                  />
+                </div>
+
+                <!-- Form Buttons (Save & Cancel) -->
+                <div class="form-buttons">
+                  <button type="submit" class="save-button">Save</button>
+                  <button type="button" class="cancel-button">Cancel</button>
+                </div>
+              </form>
+            </div>
+            <section class="gallery">
+              <div class="h2"><h2>Gallery</h2></div>
+              <button id="e4" class="edit-button">Add to Gallery</button>
+
+              <!-- Gallery Grid -->
+              <div class="gallery-container"></div>
+
+              <!-- Add Image Form -->
+              <div
+                id="gallery-form-container"
+                class="hidden edit-form-container"
+              >
+                <form id="gallery-form">
+                  <label for="gallery-image">Select an image:</label>
+                  <input type="file" id="gallery-image" accept="image/*" />
+
+                  <div class="form-buttons galBtn">
+                    <button type="submit" class="save-gallery">Save</button>
+                    <button type="button" class="cancel-gallery">Cancel</button>
+                  </div>
+                </form>
+              </div>
+            </section>
+          </section>
+        </section>
+      </section>
+    </section>
+    <script src="../js/profile.js"></script>
+  </body>
+</html>

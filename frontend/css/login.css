@@ -1,0 +1,245 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Roboto&display=swap");
+
+:root {
+  --main-color: #134e2d;
+  --secondary-color: #103713;
+  --main-font: "Playfair Display", serif;
+  --secondary-font: "Roboto", sans-serif;
+  --highlights: #ff9505;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  overflow: hidden;
+}
+
+.body {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.blob {
+  position: absolute;
+  z-index: 99;
+}
+
+.blob1 {
+  height: 500px;
+  top: -39px;
+  left: -260px;
+}
+
+.blob2 {
+  height: 400px;
+  right: -170px;
+  rotate: 90deg;
+  top: -100px;
+}
+
+.blob3 {
+  left: -50px;
+  bottom: -70px;
+  height: 200px;
+}
+
+.blob4 {
+  right: -170px;
+  bottom: 10px;
+  height: 300px;
+}
+
+.blob5 {
+  right: 350px;
+  top: 500px;
+  height: 400px;
+}
+
+.blob6 {
+  left: 400px;
+  bottom: 550px;
+  height: 400px;
+}
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 71%;
+  height: 77%;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.146);
+}
+
+.signin {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 58%;
+  height: 100%;
+}
+.signin h2 {
+  margin-bottom: 30px;
+}
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.input-field {
+  border: none;
+  background-color: rgb(220, 220, 220);
+  width: 350px;
+  margin-bottom: 30px;
+  padding: 15px;
+  font-size: 16px;
+  outline: none;
+  border-radius: 5px;
+}
+
+a {
+  color: #000000;
+  text-decoration: none;
+}
+
+button {
+  margin-top: 30px;
+  text-align: center;
+  background-color: var(--secondary-color);
+  color: rgb(250, 250, 250);
+  padding: 15px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  width: 150px;
+  height: 45px;
+}
+
+.signin-button:hover {
+  background-color: transparent;
+  outline: 2px solid var(--secondary-color);
+  color: black;
+}
+.back {
+  margin-top: 10px;
+  font-size: 14px;
+  text-decoration: underline;
+}
+.container {
+  background-image: url(../assets/login/bg.svg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 42%;
+  height: 100%;
+  background-color: #134e2d;
+  border-radius: 0px 5px 5px 0px;
+  color: white;
+  text-align: center;
+}
+
+.text {
+  margin: 60px;
+}
+
+.text h2 {
+  color: var(--highlights);
+  margin-bottom: 30px;
+}
+
+.text h3 {
+  margin-bottom: 5px;
+}
+.sign-up {
+  border: 1.5px solid var(--highlights);
+}
+.show {
+  font-size: 2rem;
+}
+#signupForm {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 80%;
+  width: 90%;
+}
+.signup1 {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 60%;
+  height: 100%;
+}
+.signup1 h2 {
+  margin-top: 30px;
+}
+.sign-up:hover {
+  background-color: var(--highlights);
+  border: 1.5px solid white;
+  color: black;
+}
+.input {
+  border: none;
+  background-color: rgb(220, 220, 220);
+  width: 350px;
+  margin-bottom: 10px;
+  padding: 15px;
+  height: 50px;
+  font-size: 16px;
+  outline: none;
+  border-radius: 5px;
+}
+.row {
+  width: 350px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.inputf {
+  margin-top: 10px;
+  border: none;
+  background-color: rgb(220, 220, 220);
+  width: 170px;
+  height: 50px;
+  margin-bottom: 10px;
+  padding: 15px;
+  font-size: 16px;
+  outline: none;
+  border-radius: 5px;
+}
+.hide {
+  display: none;
+  pointer-events: none;
+}
+#signupBtn {
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+.back {
+  margin-bottom: 10px;
+}

@@ -1,0 +1,206 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/tasks.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <section class="contents">
+      <nav>
+        <div class="logo-area">
+          <div class="logo"><img src="../assets/home/logo3.png" alt="" /></div>
+          <a href="" class="webname">FarmHub</a>
+        </div>
+        <div class="pages">
+          <button>
+            <i class="fas fa-tachometer-alt"></i>
+            <a href="dashboard.html">Dashboard</a>
+          </button>
+          <button>
+            <i class="fas fa-bell"></i>
+            <a href="notifications.html">Notifications</a>
+          </button>
+
+          <button class="active">
+            <i class="fas fa-tasks"></i>
+            <a href="tasks.html">Tasks</a>
+          </button>
+          <button>
+            <i class="fas fa-seedling"></i>
+            <a href="crops.html">Crops</a>
+          </button>
+          <button>
+            <i class="fas fa-warehouse"></i>
+            <a href="storage.html"> Storage</a>
+          </button>
+          <button>
+            <i class="fas fa-user"></i>
+            <a href="profile.html">Profile</a>
+          </button>
+        </div>
+
+        <div class="signout">
+          <button>
+            <i class="fas fa-sign-out-alt"></i>
+            <a href="">Logout</a>
+          </button>
+        </div>
+      </nav>
+      <section class="body">
+        <section class="user">
+          <h1>Alex Davis</h1>
+          <div class="notification"><i class="far fa-bell"></i></div>
+        </section>
+        <section class="content">
+          <div class="tasks">
+            <div class="search-bar">
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Search by Task name"
+              />
+              <button><i class="fa fa-search"></i></button>
+            </div>
+            <div class="options">
+              <div class="filter">
+                <button class="active-btn" id="filter-all">All</button>
+                <button id="filter-ongoing">
+                  <i class="fa fa-spinner fa-spin"></i>
+                </button>
+                <button id="filter-completed">
+                  <i class="fa fa-check-circle"></i>
+                </button>
+                <button id="filter-overdue">
+                  <i class="fa fa-exclamation-circle red"></i>
+                </button>
+              </div>
+              <div class="new-task">
+                <button id="new-taskBtn">
+                  <i class="fa fa-plus-circle"></i> New Task
+                </button>
+              </div>
+            </div>
+
+            <form id="task-form" class="hidden">
+              <h2>New Task</h2>
+
+              <label for="title">Title:</label>
+              <select id="title" name="title" required>
+                <option value="" disabled selected>Select a task</option>
+                <option value="Crops">Crops 🌱</option>
+                <option value="Livestock">Livestock 🐄</option>
+                <option value="Maintenance">Maintenance 🔧</option>
+                <option value="Market">Market 💰</option>
+                <option value="Others">Others 📌</option>
+              </select>
+
+              <label for="due_date">Due Date:</label>
+              <input type="date" id="due_date" name="due_date" required />
+
+              <label for="description">Description:</label>
+              <textarea
+                id="description"
+                name="description"
+                rows="6"
+                required
+              ></textarea>
+              <div class="form-buttons">
+                <button type="submit" class="submit-task">Submit</button>
+                <button id="cancel" class="cancel-task">Cancel</button>
+              </div>
+            </form>
+            <div class="task-content">
+              <h1>No Tasks Yet</h1>
+              <!-- <div>
+                <span class="status complete">Completed</span>
+                <h4>Crops</h4>
+                <h6>Due: <span>20d</span></h6>
+                <p>Water the 5 lilies</p>
+                <div class="buttons">
+                  <button class="complete-btn">Complete</button>
+                  <button class="delete-btn">Delete</button>
+                </div>
+              </div>
+              <div>
+                <span class="status ongoing">Ongoing</span>
+                <h4>Livestock</h4>
+                <h6>Due: <span>10d</span></h6>
+                <p>Water the 5 lilies</p>
+                <div class="buttons">
+                  <button class="complete-btn">Complete</button>
+                  <button class="delete-btn">Delete</button>
+                </div>
+              </div>
+              <div>
+                <span class="status ongoing">Ongoing</span>
+                <h4>Maintenance</h4>
+                <h6>Due: <span>2d</span></h6>
+                <p>Water the 5 lilies</p>
+                <div class="buttons">
+                  <button class="complete-btn">Complete</button>
+                  <button class="delete-btn">Delete</button>
+                </div>
+              </div>
+              <div>
+                <span class="status overdue">overdue</span>
+                <h4>Market</h4>
+                <h6>Due: <span>20/11/24</span></h6>
+                <p>Water the 5 lilies</p>
+                <div class="buttons">
+                  <button class="complete-btn">Complete</button>
+                  <button class="delete-btn">Delete</button>
+                </div>
+              </div>
+              <div>
+                <span class="status complete">Completed</span>
+                <h4>Others</h4>
+                <h6>Due: <span>20d</span></h6>
+                <p>Water the 5 lilies</p>
+                <div class="buttons">
+                  <button class="complete-btn">Complete</button>
+                  <button class="delete-btn">Delete</button>
+                </div>
+              </div>
+              <div>
+                <span class="status ongoing">Ongoing</span>
+                <h4>Water Crops</h4>
+                <h6>Due: <span>20d</span></h6>
+                <p>Water the 5 lilies</p>
+                <div class="buttons">
+                  <button class="complete-btn">Complete</button>
+                  <button class="delete-btn">Delete</button>
+                </div>
+              </div>
+              <div>
+                <span class="status overdue">Overdue</span>
+                <h4>Water Crops</h4>
+                <h6>Due: <span>1/12/24</span></h6>
+                <p>Water the 5 lilies</p>
+                <div class="buttons">
+                  <button class="complete-btn">Complete</button>
+                  <button class="delete-btn">Delete</button>
+                </div>
+              </div>
+              <div>
+                <span class="status ongoing">Ongoing</span>
+                <h4>Water Crops</h4>
+                <h6>Due: <span>20d</span></h6>
+                <p>Water the 5 lilies</p>
+                <div class="buttons">
+                  <button class="complete-btn">Complete</button>
+                  <button class="delete-btn">Delete</button>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </section>
+      </section>
+    </section>
+    <script src="../js/tasks.js"></script>
+  </body>
+</html>

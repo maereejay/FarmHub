@@ -1,0 +1,219 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/crops.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <section class="contents">
+      <nav>
+        <div class="logo-area">
+          <div class="logo"><img src="../assets/home/logo3.png" alt="" /></div>
+          <a href="" class="webname">FarmHub</a>
+        </div>
+        <div class="pages">
+          <button>
+            <i class="fas fa-tachometer-alt"></i>
+            <a href="dashboard.html">Dashboard</a>
+          </button>
+          <button>
+            <i class="fas fa-bell"></i>
+            <a href="notifications.html">Notifications</a>
+          </button>
+
+          <button>
+            <i class="fas fa-tasks"></i>
+            <a href="tasks.html">Tasks</a>
+          </button>
+          <button class="active">
+            <i class="fas fa-seedling"></i>
+            <a href="crops.html">Crops</a>
+          </button>
+          <button>
+            <i class="fas fa-warehouse"></i>
+            <a href="storage.html"> Storage</a>
+          </button>
+          <button>
+            <i class="fas fa-user"></i>
+            <a href="profile.html">Profile</a>
+          </button>
+        </div>
+
+        <div class="signout">
+          <button>
+            <i class="fas fa-sign-out-alt"></i>
+            <a href="home.html">Logout</a>
+          </button>
+        </div>
+      </nav>
+      <section class="body">
+        <section class="user">
+          <h1>Alex Davis</h1>
+          <div class="notification"><i class="far fa-bell"></i></div>
+        </section>
+        <section class="content">
+          <div class="crops">
+            <div class="search-bar">
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Search by Crop name"
+              />
+              <button><i class="fa fa-search"></i></button>
+            </div>
+            <div class="options">
+              <div class="filter">
+                <button class="active-btn">All</button>
+                <button>
+                  <i class="fas fa-hourglass-half"></i>
+                </button>
+                <button>
+                  <i class="fas fa-seedling"></i>
+                </button>
+              </div>
+              <div class="right-side">
+                <div class="sort">
+                  <button id="sortBtn">Sort ▼</button>
+                  <div id="sortMenu" class="dropdown hidden">
+                    <button
+                      class="sort-opt"
+                      data-sort="asc"
+                      title="Sort by Earliest Harvest Date"
+                    >
+                      <i class="fas fa-sort-amount-up"></i>
+                    </button>
+                    <button
+                      class="sort-opt"
+                      data-sort="desc"
+                      title="Sort by Latest Harvest Date"
+                    >
+                      <i class="fas fa-sort-amount-down"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="new-crop">
+                  <button id="add-crop">
+                    <i class="fa fa-plus-circle"></i> New Crop
+                  </button>
+                </div>
+              </div>
+            </div>
+            <form id="crop-form" class="hidden">
+              <h2>New Crop</h2>
+
+              <label for="crop_name">Crop Name:</label>
+              <input type="text" id="crop_name" name="crop_name" required />
+              <label for="harvest_date">Harvest Date:</label>
+              <input
+                type="date"
+                id="harvest_date"
+                name="harvest_date"
+                required
+              />
+              <label for="quantity">Quantity:</label>
+              <input type="number" id="quantity" name="quantity" required />
+              <label for="plot">Plot Name:</label>
+              <input type="text" id="plot" name="plot" />
+
+              <div class="form-buttons">
+                <button type="submit" class="submit-crop">Submit</button>
+                <button id="cancel" class="cancel-crop">Cancel</button>
+              </div>
+            </form>
+            <div class="crop-content">
+              <h1>No Tasks Yet</h1>
+              <!-- <div>
+                <h4>Cassava</h4>
+                <h6>
+                  📅 Harvest Date:
+                  <span>20/11/24</span>
+                </h6>
+                <h6>
+                  ⏳ Days Left:
+                  <span>8 days</span>
+                </h6>
+                <h6>
+                  ⏳ Quantity:
+                  <span>90</span>
+                </h6>
+                <h6>
+                  ⏳ Plot:
+                  <span>Maybeach Farm</span>
+                </h6>
+                <div class="crop-opts">
+                  <button class="harv-crop-btn">
+                    <i class="fas fa-shopping-basket"></i>
+                  </button>
+                  <button class="del-crop-btn">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+              <div>
+                <h4>Cassava</h4>
+                <h6>
+                  📅 Harvest Date:
+                  <span>20/11/24</span>
+                </h6>
+                <h6>
+                  ⏳ Days Left:
+                  <span>8 days</span>
+                </h6>
+                <h6>
+                  ⏳ Quantity:
+                  <span>90</span>
+                </h6>
+                <h6>
+                  ⏳ Plot:
+                  <span>Maybeach Farm</span>
+                </h6>
+                <div class="crop-opts">
+                  <button class="harv-crop-btn">
+                    <i class="fas fa-shopping-basket"></i>
+                  </button>
+                  <button class="del-crop-btn">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+              <div>
+                <h4>Cassava</h4>
+                <h6>
+                  📅 Harvest Date:
+                  <span>20/11/24</span>
+                </h6>
+                <h6>
+                  ⏳ Days Left:
+                  <span>8 days</span>
+                </h6>
+                <h6>
+                  ⏳ Quantity:
+                  <span>90</span>
+                </h6>
+                <h6>
+                  ⏳ Plot:
+                  <span>Maybeach Farm</span>
+                </h6>
+                <div class="crop-opts">
+                  <button class="harv-crop-btn">
+                    <i class="fas fa-shopping-basket"></i>
+                  </button>
+                  <button class="del-crop-btn">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </section>
+      </section>
+    </section>
+    <script src="../js/crops.js"></script>
+  </body>
+</html>

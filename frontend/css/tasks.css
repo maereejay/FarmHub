@@ -1,0 +1,443 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alex+Brush&family=Dancing+Script:wght@400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  --body-color: #103713;
+  --page-color: white;
+  --nav-color: #134e2d;
+  --light-color: #134e2d3f;
+  --semicircle: #134e2d;
+  --highlights: #ff9505;
+  --card-color: black;
+  --main-font: "Playfair Display", serif;
+  --secondary-font: "Roboto", sans-serif;
+  --text-hfont: "Dancing Script", serif;
+  --font-heading: "Archivo", sans-serif;
+  --font-text: "Inter", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--page-color);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contents {
+  width: 98%;
+  height: 94%;
+  background-color: var(--page-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav {
+  border-radius: 7px 0px 0px 7px;
+  height: 100%;
+  width: 17%;
+  background-color: var(--nav-color);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.logo-area {
+  margin-top: 7%;
+  height: 15%;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  /* border: 2px solid blue; */
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+.logo {
+  height: 40%;
+  width: 25%;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.webname {
+  font-family: var(--main-font);
+  font-size: 100%;
+  color: var(--page-color);
+}
+
+.pages {
+  margin-top: 10%;
+  height: 40%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+button {
+  color: white;
+  width: 100%;
+  height: 50%;
+  padding: 5px;
+  font-family: var(--secondary-font);
+  background-color: transparent;
+  border: none;
+  font-size: 90%;
+  margin-top: 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.active,
+.pages > button:hover {
+  background-color: var(--highlights);
+  color: white;
+}
+
+.pages > button > a {
+  margin-left: 5%;
+  width: 35%;
+  text-align: left;
+}
+
+.signout {
+  transform: translate(0%, 300%);
+}
+.signout button > a {
+  text-align: left;
+  width: 35%;
+}
+.signout button > i {
+  margin-right: 10%;
+}
+.signout:hover a {
+  color: var(--highlights);
+}
+.body {
+  border-radius: 0px 7px 7px 0px;
+  height: 100%;
+  width: 80%;
+  border: 1.5px solid black;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.user {
+  margin-top: 1%;
+  width: 98%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
+  box-shadow: 0px 2px 6px #09090933;
+}
+
+.user h1 {
+  margin-right: 1%;
+  font-size: 100%;
+}
+i {
+  cursor: pointer;
+}
+.notification {
+  margin-right: 4%;
+  font-size: 22px;
+  color: var(--highlights);
+}
+.content {
+  width: 100%;
+  height: 85%;
+  display: flex;
+  justify-content: center;
+}
+.tasks {
+  margin-top: 2%;
+  border: 2px solid var(--body-color);
+  padding: 2%;
+  height: 98%;
+  width: 98%;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.search-bar {
+  margin-top: 2%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.search-bar button {
+  margin: 0;
+  width: 8%;
+  height: 100%;
+  background-color: var(--highlights);
+  border: none;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+}
+#search-input {
+  padding: 1.5%;
+  font-size: 100%;
+  width: 90%;
+  border-radius: 3px;
+  border: 1px solid black;
+}
+.options {
+  margin-top: 1.8%;
+  width: 95%;
+  height: 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 17%;
+  height: 100%;
+}
+.options button {
+  cursor: pointer;
+  margin: 0;
+  border-radius: 3px;
+  border: 2px solid var(--highlights);
+}
+.filter button {
+  margin-right: 1%;
+  width: 23%;
+  height: 100%;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.red {
+  color: red;
+}
+.active-btn,
+.options button:hover {
+  background-color: var(--highlights);
+  color: white;
+}
+.options button:hover .red {
+  color: white;
+}
+.new-task {
+  width: 12%;
+  height: 100%;
+}
+.new-task button {
+  padding-right: 9%;
+  padding-left: 9%;
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  background-color: var(--highlights);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+.search-bar button:hover,
+.new-task button:hover {
+  border: 2px solid var(--highlights);
+  color: black;
+  background-color: transparent;
+}
+form {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--body-color);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  height: 60%;
+  width: 35%;
+  border-radius: 5px;
+  padding: 1.5%;
+  bottom: 10%;
+  z-index: 100;
+}
+form:hover {
+  transform: scale(1.005);
+}
+
+form > h2 {
+  text-align: center;
+  margin-bottom: 1%;
+}
+
+form > input,
+form > select {
+  margin-top: 1%;
+  margin-bottom: 2.5%;
+  height: 8%;
+  padding: 1%;
+}
+textarea {
+  margin-top: 1%;
+  padding: 1%;
+}
+.form-buttons {
+  margin-top: 1.5%;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.hidden {
+  display: none;
+  pointer-events: none;
+}
+.form-buttons button {
+  color: black;
+  height: 94%;
+  width: 48%;
+  cursor: pointer;
+}
+.submit-task {
+  border: 2px solid var(--body-color);
+}
+.submit-task:hover {
+  background-color: var(--body-color);
+  color: white;
+}
+.cancel-task {
+  border: 2px solid red;
+}
+.cancel-task:hover {
+  background-color: red;
+  color: white;
+}
+.task-content {
+  margin-top: 1.8%;
+  width: 95%;
+  min-height: 73%;
+  max-height: 80%;
+  border: 2px solid var(--body-color);
+  overflow-y: auto;
+  padding-top: 3.2%;
+  padding-left: 2.5%;
+  padding-bottom: 1%;
+  padding-right: 1%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.task-content h1 {
+  position: relative;
+  left: 45%;
+  top: 43%;
+  height: 10%;
+  z-index: 10;
+}
+.task-content > div {
+  border: 2px solid var(--highlights);
+  border-radius: 5px;
+  padding: 1.5%;
+  height: 240px;
+  width: 23%;
+  margin-bottom: 20px;
+  margin-right: 2%;
+}
+.status {
+  height: 10%;
+  width: 100%;
+  color: white;
+  padding: 3%;
+  font-family: var(--font-text);
+  font-size: 70%;
+  margin-left: 63%;
+  border-radius: 10px;
+}
+.complete {
+  background-color: var(--nav-color);
+}
+.ongoing {
+  background-color: var(--highlights);
+}
+.overdue {
+  background-color: red;
+}
+.task-content > div h4 {
+  font-family: var(--font-heading);
+  margin-top: 3%;
+  font-size: 130%;
+}
+.task-content > div h6 {
+  font-family: var(--font-heading);
+  margin-top: 1%;
+  font-size: 70%;
+}
+.task-content > div p {
+  font-family: var(--font-text);
+  margin-top: 3%;
+  font-size: 70%;
+  height: 52%;
+  overflow-y: auto;
+  padding: 2%;
+  border: 1px solid var(--highlights);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  white-space: normal;
+}
+.buttons {
+  margin-top: 1.5%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.buttons button {
+  color: black;
+  height: 90%;
+  width: 48%;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.complete-btn {
+  border: 2px solid var(--highlights);
+  color: black;
+}
+.complete-btn:hover {
+  background-color: var(--highlights);
+  color: white;
+}
+.delete-btn {
+  border: 2px solid red;
+  color: black;
+}
+.delete-btn:hover {
+  background-color: red;
+  color: white;
+}

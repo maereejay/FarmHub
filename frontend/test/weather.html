@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crop Monitoring System</title>
+    <link rel="stylesheet" href="weather.css" />
+    <script defer src="weather.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🌾 Smart Crop Monitor</h1>
+      <p>
+        Track your crops effortlessly and get notified when it's harvest time!
+      </p>
+
+      <button id="showFormBtn" class="add-btn">➕ Add Crop</button>
+
+      <!-- Filter & Sort Options -->
+      <div class="filter-sort-container">
+        <div class="filter-group">
+          <label for="statusFilter">Filter:</label>
+          <select id="statusFilter">
+            <option value="all">All Crops</option>
+            <option value="ready">🌾 Ready for Harvest</option>
+            <option value="almost">⚠️ Almost Ready</option>
+            <option value="growing">⏳ Still Growing</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="sortOrder">Sort:</label>
+          <select id="sortOrder">
+            <option value="earliest">📅 Earliest First</option>
+            <option value="latest">📅 Latest First</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="cropList">
+        <h2>🌱 Your Crops</h2>
+        <ul id="crops"></ul>
+      </div>
+    </div>
+
+    <!-- Modal for Adding Crops -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-content">
+        <h2>Add Crop</h2>
+        <form id="cropForm">
+          <label for="cropName">Crop Name:</label>
+          <input type="text" id="cropName" required />
+
+          <label for="cropType">Crop Type:</label>
+          <select id="cropType" required>
+            <option value="" disabled selected>Select Crop Type</option>
+            <option value="Grain">Grain</option>
+            <option value="Vegetable">Vegetable</option>
+            <option value="Fruit">Fruit</option>
+            <option value="Legume">Legume</option>
+            <option value="Herb">Herb</option>
+          </select>
+
+          <label for="harvestDate">Harvest Date:</label>
+          <input type="date" id="harvestDate" required />
+
+          <div class="modal-buttons">
+            <button type="button" id="cancelBtn" class="cancel-btn">
+              Cancel
+            </button>
+            <button type="submit" class="submit-btn">Add Crop</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,141 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/login.css" />
+    <title>Login</title>
+  </head>
+  <body>
+    <img src="../assets/login/blob1.svg" alt="" class="blob blob1" />
+    <img src="../assets/login/blob2.svg" alt="" class="blob blob2" />
+    <img src="../assets/login/blob3.svg" alt="" class="blob blob3" />
+    <img src="../assets/login/blob4.svg" alt="" class="blob blob4" />
+    <img src="../assets/login/blob5.svg" alt="" class="blob blob5" />
+    <img src="../assets/login/blob6.svg" alt="" class="blob blob6" />
+    <section class="body">
+      <section>
+        <div class="signin" id="signin">
+          <h2>Sign in to FarmHub</h2>
+          <form id="loginForm">
+            <input
+              type="text"
+              class="input-field"
+              placeholder="Input email"
+              name="email"
+            />
+            <input
+              type="password"
+              class="input-field"
+              placeholder="Input password"
+              name="password"
+            />
+            <a href="">Forgot Password?</a>
+            <a href="dashboard.html"
+              ><button type="submit" class="signin-button" id="signinBtn">
+                SIGN IN
+              </button></a
+            >
+          </form>
+          <a href="home.html" class="back">Back</a>
+        </div>
+
+        <div class="signup1 hide" id="signup">
+          <h2>Sign up to FarmHub</h2>
+          <form id="signupForm">
+            <div class="row">
+              <input
+                type="text"
+                class="inputf"
+                placeholder="Input FirstName"
+                name="firstName"
+              />
+              <input
+                type="text"
+                class="inputf"
+                placeholder="Input LastName"
+                name="lastName"
+              />
+            </div>
+            <input
+              type="email"
+              class="input"
+              placeholder="Input email"
+              name="signup-email"
+            />
+            <input
+              id="stateInput"
+              list="states"
+              class="input"
+              placeholder="Input state"
+              name="state"
+            />
+            <datalist id="states">
+              <option value="Abia"></option>
+              <option value="Adamawa"></option>
+              <option value="Akwa Ibom"></option>
+              <option value="Anambra"></option>
+              <option value="Bauchi"></option>
+              <option value="Bayelsa"></option>
+              <option value="Benue"></option>
+              <option value="Borno"></option>
+              <option value="Cross River"></option>
+              <option value="Delta"></option>
+              <option value="Ebonyi"></option>
+              <option value="Edo"></option>
+              <option value="Ekiti"></option>
+              <option value="Enugu"></option>
+              <option value="Gombe"></option>
+              <option value="Imo"></option>
+              <option value="Jigawa"></option>
+              <option value="Kaduna"></option>
+              <option value="Kano"></option>
+              <option value="Katsina"></option>
+              <option value="Kebbi"></option>
+              <option value="Kogi"></option>
+              <option value="Kwara"></option>
+              <option value="Lagos"></option>
+              <option value="Nasarawa"></option>
+              <option value="Niger"></option>
+              <option value="Ogun"></option>
+              <option value="Ondo"></option>
+              <option value="Osun"></option>
+              <option value="Oyo"></option>
+              <option value="Plateau"></option>
+              <option value="Rivers"></option>
+              <option value="Sokoto"></option>
+              <option value="Taraba"></option>
+              <option value="Yobe"></option>
+              <option value="Zamfara"></option>
+              <option value="Federal Capital Territory (FCT)"></option>
+            </datalist>
+
+            <input
+              type="password"
+              class="input"
+              placeholder="Input password"
+              name="signup-password"
+            />
+            <a href=""
+              ><button type="submit" class="signin-button" id="signupBtn">
+                SIGN UP
+              </button></a
+            >
+          </form>
+        </div>
+        <div class="container">
+          <div class="text">
+            <h2>Hello, Friend!</h2>
+            <h3>Enter your personal details and start your journey with us.</h3>
+            <p>
+              Gain access to cut edge tools that transform the way you manage
+              your farm and enjoy special features like your very own profile
+              link.
+            </p>
+            <a href=""><button class="sign-up" id="show">SIGN UP</button></a>
+          </div>
+        </div>
+      </section>
+    </section>
+    <script src="../js/login.js"></script>
+  </body>
+</html>

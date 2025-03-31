@@ -1,0 +1,477 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alex+Brush&family=Dancing+Script:wght@400..700&display=swap");
+
+:root {
+  --body-color: #103713;
+  --page-color: white;
+  --nav-color: #134e2d;
+  --light-color: #134e2d3f;
+  --semicircle: #134e2d;
+  --highlights: #ff9505;
+  --card-color: black;
+  --main-font: "Playfair Display", serif;
+  --secondary-font: "Roboto", sans-serif;
+  --text-hfont: "Dancing Script", serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--page-color);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contents {
+  width: 98%;
+  height: 94%;
+  background-color: var(--page-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav {
+  border-radius: 7px 0px 0px 7px;
+  height: 100%;
+  width: 17%;
+  background-color: var(--nav-color);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.logo-area {
+  margin-top: 7%;
+  height: 15%;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  /* border: 2px solid blue; */
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+.logo {
+  height: 40%;
+  width: 25%;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.webname {
+  font-family: var(--main-font);
+  font-size: 100%;
+  color: var(--page-color);
+}
+
+.pages {
+  margin-top: 10%;
+  height: 40%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+button {
+  color: white;
+  width: 100%;
+  height: 50%;
+  padding: 5px;
+  font-family: var(--secondary-font);
+  background-color: transparent;
+  border: none;
+  font-size: 90%;
+  margin-top: 3%;
+}
+
+.active,
+.pages > button:hover {
+  background-color: var(--highlights);
+  color: white;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.pages > button > a {
+  margin-left: 5%;
+  width: 35%;
+  text-align: left;
+}
+
+.signout {
+  transform: translate(0%, 300%);
+}
+.signout button > a {
+  width: 35%;
+}
+.signout button > i {
+  margin-right: 10%;
+}
+.signout:hover a {
+  color: var(--highlights);
+}
+.body {
+  border-radius: 0px 7px 7px 0px;
+  height: 100%;
+  width: 80%;
+  border: 1.5px solid black;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.user {
+  margin-top: 1%;
+  width: 98%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
+  box-shadow: 0px 2px 6px #09090933;
+}
+
+.user h1 {
+  margin-right: 1%;
+  font-size: 100%;
+}
+i {
+  cursor: pointer;
+}
+.notification {
+  margin-right: 4%;
+  font-size: 22px;
+  color: var(--highlights);
+}
+.content {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+.weather {
+  box-shadow: 0px 2px 6px #09090933;
+  height: 98%;
+  width: 30%;
+  padding: 1.5%;
+}
+.weather .img {
+  display: flex;
+  justify-content: center;
+  height: 42%;
+}
+.weather .img img {
+  height: 100%;
+  width: 93%;
+  border-radius: 3px;
+}
+.weather-sect {
+  width: 100%;
+  height: 58%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weather-sect h1 {
+  margin-top: 3%;
+  font-family: var(--main-font);
+  color: #212121;
+}
+#weather-info {
+  margin-right: 2.5%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1.5%;
+  margin-top: 2.5%;
+  height: 28%;
+  width: 90%;
+  border-radius: 12px;
+  background-color: var(--nav-color);
+}
+#weather-info:hover {
+  transform: scale(1.01);
+}
+#weather-icon {
+  width: 32%;
+  height: 100%;
+}
+.text-c {
+  width: 65%;
+  height: 100%;
+}
+#current-temp {
+  margin-top: 7%;
+  color: var(--highlights);
+  font-family: var(--secondary-font);
+  font-weight: 600;
+  font-size: 160%;
+  text-align: center;
+}
+#current-description {
+  margin-top: 5%;
+  background-color: rgba(255, 255, 255, 0.664);
+  border: 1px solid white;
+  border-radius: 30px;
+  text-align: center;
+  color: white;
+  font-family: var(--secondary-font);
+  font-size: 80%;
+}
+#forecast-container {
+  margin-top: 3%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  height: 72%;
+  width: 100%;
+}
+.forecast-day {
+  padding: 1.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(246, 245, 245, 0.845);
+  border-radius: 10px;
+  text-align: center;
+  height: 93%;
+  width: 32%;
+  margin-right: 2.5%;
+}
+.forecast-day:hover {
+  transform: scale(1.02);
+}
+.day-1 {
+  border: 2px solid rgb(255, 136, 0);
+}
+.day-3 {
+  border: 2px solid #e57373;
+}
+.day-2 {
+  border: 2px solid #ffb74d;
+}
+.forecast-day h1 {
+  font-family: var(--main-font);
+  font-size: 80%;
+  width: 100%;
+  height: 10%;
+}
+.forecast-day img {
+  margin-top: 1%;
+  height: 35%;
+  width: 90%;
+}
+.forecast-day p {
+  font-family: var(--secondary-font);
+  font-size: 75%;
+  width: 90%;
+  text-align: center;
+}
+.dashboard {
+  height: 98%;
+  margin-left: 1%;
+  width: 67%;
+  box-shadow: 0px 2px 6px #09090933;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.tasks-sect,
+.boxes {
+  width: 100%;
+  height: 49%;
+  display: flex;
+  flex-direction: row;
+}
+.tasks {
+  height: 100%;
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+}
+.task-h {
+  height: 15%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.task-h h1 {
+  margin-top: 2.5%;
+  font-family: var(--main-font);
+  font-size: 100%;
+  color: #212121;
+}
+.upward-arr {
+  width: 10%;
+  margin-right: 3%;
+  border-radius: 5px;
+  height: 100%;
+  background-color: var(--highlights);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.upward-arr:hover {
+  transform: scale(1.1);
+}
+.task-content {
+  height: 85%;
+  width: 100%;
+  padding: 1.5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.task-content div {
+  width: 100%;
+  height: 31%;
+  padding: 1.5%;
+  display: flex;
+  flex-direction: row;
+}
+.task-content div:hover {
+  transform: scale(1.02);
+}
+.task1 {
+  border: 2px solid var(--nav-color);
+  border-radius: 5px;
+}
+.task2 {
+  border: 2px solid var(--highlights);
+  border-radius: 5px;
+}
+.task3 {
+  border: 2px solid black;
+  border-radius: 5px;
+}
+.task-content .due-date {
+  color: white;
+  border: 1px solid black;
+  border-radius: 1px;
+  width: 13%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--secondary-font);
+  text-align: center;
+  font-size: 80%;
+}
+.task-text {
+  width: 87%;
+  height: 100%;
+  font-size: 100%;
+  text-align: center;
+  color: #212121;
+  font-family: var(--secondary-font);
+  font-weight: 500;
+  margin-top: 2%;
+  margin-left: 2%;
+}
+.prod-chart {
+  height: 100%;
+  width: 35%;
+  margin-left: 2%;
+  border: 2px solid #e57373;
+  border-radius: 5px;
+  padding: 1.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prod-chart:hover {
+  transform: scale(1.02);
+}
+.chart {
+  height: 95%;
+  width: 90%;
+}
+.boxes {
+  display: flex;
+  justify-content: space-between;
+}
+.box1 {
+  width: 30%;
+  height: 100%;
+  border: 2px solid rgb(191, 87, 194);
+  border-radius: 5px;
+  padding: 1.5%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.box1:hover,
+.box2:hover {
+  transform: scale(1.01);
+}
+.box2 {
+  width: 68%;
+  height: 100%;
+  display: flex;
+  border: 2px solid var(--body-color);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.linechart {
+  margin-top: 4%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+  width: 95%;
+  color: black;
+}
+.box1 h4 {
+  margin-top: 5%;
+}
+ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2%;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  line-height: 150%;
+  width: 100%;
+  margin-top: 2%;
+  border-bottom: 2px solid black;
+}
+li:hover {
+  background-color: rgba(190, 87, 194, 0.829);
+  color: white;
+}

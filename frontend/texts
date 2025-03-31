@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Edit Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f9;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .section {
+        margin-bottom: 20px;
+      }
+
+      .section h2 {
+        margin-bottom: 10px;
+        font-size: 1.2em;
+      }
+
+      input[type="file"],
+      input[type="text"],
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1em;
+      }
+
+      textarea {
+        resize: vertical;
+      }
+
+      .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .gallery-item {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: #f0f0f0;
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .gallery-item button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(255, 0, 0, 0.8);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
+
+      .preview-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1em;
+        cursor: pointer;
+        text-align: center;
+      }
+
+      .preview-btn:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="section">
+        <h2>Profile Picture</h2>
+        <input type="file" id="profile-picture" accept="image/*" />
+        <div id="profile-picture-preview" style="margin-top: 10px"></div>
+      </div>
+
+      <div class="section">
+        <h2>Bio</h2>
+        <textarea
+          id="bio"
+          rows="5"
+          placeholder="Write something about yourself..."
+        ></textarea>
+      </div>
+
+      <div class="section">
+        <h2>Images with Text</h2>
+        <input type="file" id="image-with-text" accept="image/*" />
+        <input
+          type="text"
+          id="image-caption"
+          placeholder="Enter image caption"
+        />
+        <button onclick="addImageWithText()">Add</button>
+        <div id="images-with-text-preview" style="margin-top: 10px"></div>
+      </div>
+
+      <div class="section">
+        <h2>Gallery</h2>
+        <input type="file" id="gallery-upload" accept="image/*" multiple />
+        <div class="gallery" id="gallery"></div>
+      </div>
+
+      <button class="preview-btn" onclick="previewProfile()">Preview</button>
+    </div>
+
+    <script>
+      // Profile Picture Preview
+      const profilePictureInput = document.getElementById("profile-picture");
+      const profilePicturePreview = document.getElementById(
+        "profile-picture-preview"
+      );
+
+      profilePictureInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            profilePicturePreview.innerHTML = `<img src="${reader.result}" alt="Profile Picture" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;">`;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Add Image with Text
+      function addImageWithText() {
+        const imageInput = document.getElementById("image-with-text");
+        const captionInput = document.getElementById("image-caption");
+        const preview = document.getElementById("images-with-text-preview");
+
+        const file = imageInput.files[0];
+        const caption = captionInput.value;
+
+        if (file && caption) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const div = document.createElement("div");
+            div.style.marginBottom = "10px";
+            div.innerHTML = `<img src="${reader.result}" alt="Image" style="width: 100%; max-width: 200px; display: block; margin-bottom: 5px;">
+                                     <p>${caption}</p>`;
+            preview.appendChild(div);
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+
+      // Gallery Upload
+      const galleryUpload = document.getElementById("gallery-upload");
+      const gallery = document.getElementById("gallery");
+
+      galleryUpload.addEventListener("change", (e) => {
+        const files = e.target.files;
+
+        Array.from(files).forEach((file) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const div = document.createElement("div");
+            div.className = "gallery-item";
+            div.innerHTML = `<img src="${reader.result}" alt="Gallery Image">
+                                     <button onclick="this.parentElement.remove()">&times;</button>`;
+            gallery.appendChild(div);
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+
+      // Preview Profile
+      function previewProfile() {
+        alert("Preview button clicked! Implement preview functionality here.");
+      }
+    </script>
+  </body>
+</html>

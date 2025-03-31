@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery and Posts</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: #f4f4f9;
+        color: #333;
+      }
+      h1,
+      h2 {
+        text-align: center;
+      }
+      .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+      }
+      .gallery,
+      .recent-posts {
+        margin-top: 20px;
+      }
+      .gallery .image-container,
+      .recent-posts .post {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        position: relative;
+      }
+      .gallery img,
+      .recent-posts img {
+        max-width: 100%;
+        height: auto;
+      }
+      .upload-section,
+      .post-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      input[type="file"],
+      textarea {
+        margin: 10px 0;
+        padding: 10px;
+        width: 90%;
+        max-width: 400px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      .nav-buttons {
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .nav-buttons button {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+      }
+      .nav-buttons button:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Gallery and Recent Posts</h1>
+
+      <!-- Gallery Section -->
+      <section class="gallery">
+        <h2>Image Gallery</h2>
+        <div class="upload-section">
+          <input type="file" id="gallery-upload" multiple accept="image/*" />
+          <button onclick="addToGallery()">Add to Gallery</button>
+        </div>
+        <div id="gallery-container" class="image-container">
+          <p>No images in the gallery yet.</p>
+        </div>
+      </section>
+
+      <!-- Recent Posts Section -->
+      <section class="recent-posts">
+        <h2>Recent Posts</h2>
+        <div class="post-section">
+          <textarea
+            id="post-text"
+            rows="3"
+            placeholder="Enter your post text"
+          ></textarea>
+          <input type="file" id="post-images" multiple accept="image/*" />
+          <button onclick="addPost()">Add Post</button>
+        </div>
+        <div id="post-container">
+          <p>No recent posts yet.</p>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const galleryContainer = document.getElementById("gallery-container");
+      const postContainer = document.getElementById("post-container");
+      let galleryImages = [];
+      let posts = [];
+
+      // Add images to the gallery
+      function addToGallery() {
+        const files = document.getElementById("gallery-upload").files;
+        if (files.length > 0) {
+          for (const file of files) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              galleryImages.push(e.target.result);
+              updateGallery();
+            };
+            reader.readAsDataURL(file);
+          }
+        }
+      }
+
+      function updateGallery() {
+        if (galleryImages.length === 0) {
+          galleryContainer.innerHTML = "<p>No images in the gallery yet.</p>";
+          return;
+        }
+        let index = 0;
+        galleryContainer.innerHTML = `
+        <img src="${galleryImages[index]}" alt="Gallery Image">
+        <div class="nav-buttons">
+          <button onclick="navigateGallery(-1)">&#8249;</button>
+          <button onclick="navigateGallery(1)">&#8250;</button>
+        </div>
+      `;
+        galleryContainer.dataset.index = index;
+      }
+
+      function navigateGallery(direction) {
+        const index = parseInt(galleryContainer.dataset.index);
+        const newIndex =
+          (index + direction + galleryImages.length) % galleryImages.length;
+        galleryContainer.dataset.index = newIndex;
+        galleryContainer.querySelector("img").src = galleryImages[newIndex];
+      }
+
+      // Add posts with text and images
+      function addPost() {
+        const postText = document.getElementById("post-text").value.trim();
+        const files = document.getElementById("post-images").files;
+        if (postText === "" && files.length === 0) {
+          alert("Please add text or images to the post.");
+          return;
+        }
+
+        const postImages = [];
+        for (const file of files) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            postImages.push(e.target.result);
+            if (postImages.length === files.length) {
+              savePost(postText, postImages);
+            }
+          };
+          reader.readAsDataURL(file);
+        }
+
+        if (files.length === 0) savePost(postText, []);
+      }
+
+      function savePost(text, images) {
+        posts.unshift({ text, images });
+        if (posts.length > 3) posts.pop(); // Limit to 3 posts
+        updatePosts();
+      }
+
+      function updatePosts() {
+        if (posts.length === 0) {
+          postContainer.innerHTML = "<p>No recent posts yet.</p>";
+          return;
+        }
+        postContainer.innerHTML = "";
+        posts.forEach((post, i) => {
+          let index = 0;
+          const postDiv = document.createElement("div");
+          postDiv.classList.add("post");
+          postDiv.innerHTML = `
+          <p>${post.text}</p>
+          <img src="${post.images[index]}" alt="Post Image">
+          <div class="nav-buttons">
+            <button onclick="navigatePost(${i}, -1)">&#8249;</button>
+            <button onclick="navigatePost(${i}, 1)">&#8250;</button>
+          </div>
+        `;
+          postDiv.dataset.index = index;
+          postContainer.appendChild(postDiv);
+        });
+      }
+
+      function navigatePost(postIndex, direction) {
+        const postDiv = postContainer.children[postIndex];
+        const index = parseInt(postDiv.dataset.index);
+        const images = posts[postIndex].images;
+        if (images.length > 0) {
+          const newIndex = (index + direction + images.length) % images.length;
+          postDiv.dataset.index = newIndex;
+          postDiv.querySelector("img").src = images[newIndex];
+        }
+      }
+    </script>
+  </body>
+</html>

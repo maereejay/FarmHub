@@ -1,0 +1,141 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <section class="contents">
+      <nav>
+        <div class="logo-area">
+          <div class="logo"><img src="../assets/home/logo3.png" alt="" /></div>
+          <a href="" class="webname">FarmHub</a>
+        </div>
+        <div class="pages">
+          <button class="active">
+            <i class="fas fa-tachometer-alt"></i>
+            <a href="">Dashboard</a>
+          </button>
+          <button>
+            <i class="fas fa-bell"></i>
+            <a href="notifications.html">Notifications</a>
+          </button>
+
+          <button>
+            <i class="fas fa-tasks"></i>
+            <a href="tasks.html">Tasks</a>
+          </button>
+          <button>
+            <i class="fas fa-seedling"></i>
+            <a href="crops.html">Crops</a>
+          </button>
+          <button>
+            <i class="fas fa-warehouse"></i>
+            <a href="storage.html"> Storage</a>
+          </button>
+          <button>
+            <i class="fas fa-user"></i>
+            <a href="profile.html">Profile</a>
+          </button>
+        </div>
+
+        <div class="signout">
+          <button>
+            <i class="fas fa-sign-out-alt"></i>
+            <a href="home.html">Logout</a>
+          </button>
+        </div>
+      </nav>
+      <section class="body">
+        <section class="user">
+          <h1>Alex Davis</h1>
+          <div class="notification">
+            <a href="notifications.html"><i class="far fa-bell"></i></a>
+          </div>
+        </section>
+        <section class="content">
+          <section class="weather">
+            <div class="img">
+              <img src="../assets/dashboard/plant.png" alt="" />
+            </div>
+            <div class="weather-sect">
+              <h1 id="current-date"></h1>
+              <div id="weather-info">
+                <div id="weather-icon"></div>
+                <div class="text-c">
+                  <p id="current-temp"></p>
+                  <p id="current-description"></p>
+                </div>
+              </div>
+              <div id="forecast-container"></div>
+            </div>
+          </section>
+          <section class="dashboard">
+            <div class="tasks-sect">
+              <div class="tasks">
+                <div class="task-h">
+                  <h1>Current Tasks</h1>
+                  <div class="upward-arr">
+                    <a href="tasks.html">
+                      <i
+                        class="fa-bold fa-solid fa-arrow-up-right-from-square"
+                      ></i
+                    ></a>
+                  </div>
+                </div>
+                <div class="task-content">
+                  <div class="task1">
+                    <div class="due-date">
+                      <span id="due-date">8d</span><span id="status">Left</span>
+                    </div>
+                    <div class="task-text">Plant Maize seed</div>
+                  </div>
+                  <div class="task2">
+                    <div class="due-date">
+                      <span id="due-date">2d</span><span id="status">Left</span>
+                    </div>
+                    <div class="task-text">Order 5 new tractors</div>
+                  </div>
+                  <div class="task3">
+                    <div class="due-date">
+                      <span id="due-date">1d</span><span id="status">Due</span>
+                    </div>
+                    <div class="task-text">Have a meeting with Staff</div>
+                  </div>
+                </div>
+              </div>
+              <div class="prod-chart">
+                <div class="chart"><canvas id="prodPieChart"></canvas></div>
+              </div>
+            </div>
+            <div class="boxes">
+              <div class="box1">
+                <h4>Crop Suggestion</h4>
+                <ul>
+                  <li>Tomato</li>
+                  <li>Potato</li>
+                  <li>Cabbage</li>
+                  <li>Carrot</li>
+                  <li>Onion</li>
+                  <li>Beans</li>
+                </ul>
+              </div>
+              <div class="box2">
+                <div class="linechart">
+                  <canvas id="cropBarChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+      </section>
+    </section>
+    <script src="../js/dashboard.js"></script>
+  </body>
+</html>
