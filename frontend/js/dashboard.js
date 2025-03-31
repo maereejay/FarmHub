@@ -355,3 +355,83 @@ const config = {
 // Create the bar chart
 const ctx1 = document.getElementById("cropBarChart").getContext("2d");
 const cropBarChart = new Chart(ctx1, config);
+
+document.addEventListener("DOMContentLoaded", async function () {
+  const taskContent = document.querySelector(".task-content");
+
+  try {
+    const token = localStorage.getItem("token"); // Get JWT token
+
+    let response = await fetch(
+      "http://localhost/projects/farmhub/backend/Tasks/getTask.php",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Send token for authentication
+        },
+      }
+    );
+
+    let result = await response.json();
+
+    if (result.success) {
+      taskContent.innerHTML = ""; // Clear existing tasks
+
+      let tasks = result.tasks;
+
+      // Ensure we always have 3 tasks, filling with placeholders if necessary
+      while (tasks.length < 3) {
+        tasks.push({
+          description: "No task available",
+          due_date: "NA",
+          status: "", // Empty because it's a placeholder
+        });
+      }
+
+      tasks.slice(0, 3).forEach((task, index) => {
+        let dueDate =
+          task.due_date !== "NA"
+            ? calculateDueDate(task.due_date)
+            : { days: "NA", status: "" };
+
+        let bgColor =
+          dueDate.status === "Due"
+            ? "background-color: rgb(236, 52, 52); color: white"
+            : dueDate.status === "Left"
+            ? "background-color:  rgb(71, 142, 86); color: white"
+            : "background-color: white;"; // Default for NA
+
+        let taskHtml = `
+      <div class="task${index + 1}">
+        <div class="due-date" style="${bgColor}">
+          <span id="due-date">${dueDate.days}</span>
+          <span id="status">${dueDate.status}</span>
+        </div>
+        <div class="task-text">${task.description}</div>
+      </div>
+    `;
+
+        taskContent.innerHTML += taskHtml;
+      });
+    } else {
+      taskContent.innerHTML = `<p>No pending tasks</p>`;
+    }
+  } catch (error) {
+    console.error("Error fetching tasks:", error);
+    taskContent.innerHTML = `<p>Error loading tasks</p>`;
+  }
+});
+
+// Function to calculate time left before due date
+function calculateDueDate(due_date) {
+  let dueDateObj = new Date(due_date);
+  let today = new Date();
+  let timeDiff = dueDateObj - today;
+  let daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+  return {
+    days: daysDiff > 0 ? `${daysDiff}d` : `${Math.abs(daysDiff)}d`,
+    status: daysDiff > 0 ? "Left" : "Due",
+  };
+}

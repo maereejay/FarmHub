@@ -373,7 +373,7 @@ i {
   border-radius: 5px;
 }
 .task-content .due-date {
-  color: white;
+  color: black;
   border: 1px solid black;
   border-radius: 1px;
   width: 13%;
