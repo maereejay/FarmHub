@@ -84,7 +84,7 @@ document
 
     if (dueDate < today) {
       status = "Overdue";
-    } else {
+    } else if (dueDate > today) {
       status = "Ongoing";
     }
 
@@ -180,8 +180,8 @@ function markTaskCompleted(taskId, button) {
   const taskDiv = document.querySelector(`[data-id='${taskId}']`);
   if (taskDiv) {
     const statusSpan = taskDiv.querySelector(".status");
-    statusSpan.textContent = "Completed";
-    statusSpan.className = "status complete";
+    statusSpan.textContent = "completed";
+    statusSpan.className = "status completed";
     taskDiv.setAttribute("data-status", "completed");
 
     // ✅ Disable the button after completion
@@ -265,40 +265,45 @@ function displayTasks(tasks) {
     let dueDateText;
     let status;
 
-    if (dueDate < today) {
-      // Task is overdue
-      dueDateText = dueDate.toLocaleDateString("en-GB"); // Format as dd/mm/yyyy
-      status = "Overdue";
+    if (task.status != "completed") {
+      if (dueDate < today) {
+        // Task is overdue
+        dueDateText = dueDate.toLocaleDateString("en-GB"); // Format as dd/mm/yyyy
+        status = "Overdue";
+      } else if (dueDate > today) {
+        // Task is ongoing (future date)
+        const timeDiff = dueDate - today;
+        const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+        dueDateText = `${daysRemaining}d`; // Show days remaining
+        status = "Ongoing";
+      }
     } else {
-      // Task is ongoing (future date)
-      const timeDiff = dueDate - today;
-      const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-      dueDateText = `${daysRemaining}d`; // Show days remaining
-      status = "Ongoing";
+      dueDateText = dueDate.toLocaleDateString("en-GB");
+      status = "completed";
     }
+    console.log(status);
+    console.log(task.status);
 
     // Update task status in the database if needed
     if (task.status !== status.toLowerCase()) {
       updateTaskStatus(task.id, status.toLowerCase()); // Call API to update DB
     }
-
+    console.log(task.status);
     // Create task div
     const taskDiv = document.createElement("div");
     taskDiv.classList.add("task");
     taskDiv.setAttribute("data-id", task.id);
-    taskDiv.setAttribute("data-status", status.toLowerCase());
+    taskDiv.setAttribute("data-status", task.status);
     taskDiv.setAttribute("data-task-id", task.id);
 
     taskDiv.innerHTML = `
-      <span class="status ${status.toLowerCase()}">${status}</span>
+      <span class="status ${task.status}">${task.status}</span>
       <h4>${task.title}</h4>
       <h6>Due: <span>${dueDateText}</span></h6>
       <p>${task.description}</p>
       <div class="buttons">
         <button class="complete-btn" onclick="">Complete</button>
-        <button class="delete-btn" onclick="deleteTask(${
-          task.id
-        })">Delete</button>
+        <button class="delete-btn" onclick="deleteTask(${task.id})">Delete</button>
       </div>
     `;
 

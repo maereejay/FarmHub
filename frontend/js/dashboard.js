@@ -1,3 +1,38 @@
+async function checkAndSendNotifications() {
+  const token = localStorage.getItem("token"); // Get the stored token for authorization
+  if (!token) {
+    alert("Authorization token is missing! Please log in.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "http://localhost/projects/farmhub/Backend/Notification/sendNotification.php", // The new endpoint
+      {
+        method: "GET", // Use GET or POST based on how you want to send the request
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      console.log("Notifications were successfully checked and sent!");
+      alert(result.message); // Use the message from the response to alert the user
+    } else {
+      alert(result.message || "There were no new notifications.");
+    }
+  } catch (error) {
+    alert("Something went wrong. Please try again later.");
+  }
+}
+
+// Call the function when needed
+checkAndSendNotifications();
+
 // Retrieve first name and last name from local storage
 const firstName = localStorage.getItem("first_name");
 const lastName = localStorage.getItem("last_name");
@@ -178,7 +213,6 @@ async function fetchForecast(location) {
 
     const forecastContainer = document.getElementById("forecast-container");
     forecastContainer.innerHTML = ""; // Clear previous data
-    console.log(data.forecast.forecastday);
 
     // Skip today and get the next 3 days' forecast
     const nextThreeDays = data.forecast.forecastday.slice(0, 3);
@@ -244,49 +278,168 @@ taskContainers.forEach((dueDateElement) => {
 const tasksDue = 5; // Replace this with the number of tasks due
 const tasksNotDue = 8; // Replace this with the number of tasks not due
 
-// Get the canvas element
-const ctx = document.getElementById("prodPieChart").getContext("2d");
-
-// Create the pie chart
-const prodPieChart = new Chart(ctx, {
-  type: "pie",
-  data: {
-    labels: ["Tasks Due", "Tasks Not Due"], // Labels for each section
-    datasets: [
+async function fetchTaskStats() {
+  try {
+    const response = await fetch(
+      "http://localhost/projects/farmhub/Backend/Tasks/countTask.php",
       {
-        label: "Productivity Level",
-        data: [tasksDue, tasksNotDue], // Task counts
-        backgroundColor: [" rgb(236, 52, 52)", " rgb(71, 142, 86)"], // Red for "Tasks Due", Green for "Tasks Not Due"
-        hoverBackgroundColor: ["#ff4500", "#228b22"], // Slightly darker colors on hover
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    aspectRatio: 1,
-    plugins: {
-      legend: {
-        position: "bottom",
-      },
-      tooltip: {
-        callbacks: {
-          label: function (tooltipItem) {
-            return tooltipItem.label + ": " + tooltipItem.raw + " tasks"; // Customizing the tooltip text
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      updatePieChart(result.completed_tasks, result.uncompleted_tasks);
+    } else {
+      console.error("Error fetching task stats:", result.error);
+    }
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+}
+
+// Function to update Pie Chart
+function updatePieChart(completed, uncompleted) {
+  const ctx = document.getElementById("prodPieChart").getContext("2d");
+
+  new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: ["Completed Tasks", "Uncompleted Tasks"],
+      datasets: [
+        {
+          label: "Task Completion Ratio",
+          data: [completed, uncompleted],
+          backgroundColor: ["rgb(71, 142, 86)", "rgb(236, 52, 52)"], // Green for completed, Red for uncompleted
+          hoverBackgroundColor: ["#228b22", "#ff4500"],
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      aspectRatio: 1,
+      plugins: {
+        legend: {
+          position: "bottom",
+        },
+        tooltip: {
+          callbacks: {
+            label: function (tooltipItem) {
+              return tooltipItem.label + ": " + tooltipItem.raw + " tasks";
+            },
           },
         },
       },
     },
-  },
-});
+  });
+}
+
+// Fetch and display stats on page load
+fetchTaskStats();
+
+// Get the canvas element
+// const ctx = document.getElementById("prodPieChart").getContext("2d");
+
+// // Create the pie chart
+// const prodPieChart = new Chart(ctx, {
+//   type: "pie",
+//   data: {
+//     labels: ["Tasks Due", "Tasks Not Due"], // Labels for each section
+//     datasets: [
+//       {
+//         label: "Productivity Level",
+//         data: [tasksDue, tasksNotDue], // Task counts
+//         backgroundColor: [" rgb(236, 52, 52)", " rgb(71, 142, 86)"], // Red for "Tasks Due", Green for "Tasks Not Due"
+//         hoverBackgroundColor: ["#ff4500", "#228b22"], // Slightly darker colors on hover
+//       },
+//     ],
+//   },
+//   options: {
+//     responsive: true,
+//     maintainAspectRatio: false,
+//     aspectRatio: 1,
+//     plugins: {
+//       legend: {
+//         position: "bottom",
+//       },
+//       tooltip: {
+//         callbacks: {
+//           label: function (tooltipItem) {
+//             return tooltipItem.label + ": " + tooltipItem.raw + " tasks"; // Customizing the tooltip text
+//           },
+//         },
+//       },
+//     },
+//   },
+// });
+
+async function fetchTopCrops() {
+  const token = localStorage.getItem("token"); // Get the stored token for authorization
+  const userState = localStorage.getItem("state"); // Assuming you store the user's state in localStorage
+
+  if (!token || !userState) {
+    alert("Authorization token or state is missing! Please log in.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "http://localhost/projects/farmhub/Backend/Crops/popularCrop.php", // Adjust the endpoint as needed
+      {
+        method: "POST", // Changed to POST to send the state
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          user_state: userState, // Send the user's state to the backend
+        }),
+      }
+    );
+
+    const result = await response.json();
+
+    // Check if the response is valid and contains the expected data
+    if (result.success && result.top_crops && Array.isArray(result.top_crops)) {
+      console.log("Top 5 crops:", result.top_crops);
+
+      // Ensure that the top_crops array is not empty
+      if (result.top_crops.length > 0) {
+        // Prepare the crop names and percentages for the chart
+        const cropNames = result.top_crops.map((crop) => crop.crop_name);
+        const percentages = result.top_crops.map((crop) => crop.percentage);
+
+        // Update the crop data for the chart
+        cropData.labels = cropNames;
+        cropData.datasets[0].data = percentages;
+
+        // Re-render the chart with updated data
+        cropBarChart.update();
+      } else {
+        alert("No crops found for your state.");
+      }
+    } else {
+      alert("Error fetching top crops.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Something went wrong. Please try again later.");
+  }
+}
 
 // Data for crops and the percentage of people planting them
 const cropData = {
-  labels: ["Corn", "Rice", "Wheat", "Soybeans", "Barley"], // Crop names
+  labels: [], // Initially empty, will be populated by backend data
   datasets: [
     {
       label: "Percentage of People Planting (%)",
-      data: [80, 65, 55, 70, 60], // Percentages of people planting these crops
+      data: [], // Initially empty, will be populated by backend data
       backgroundColor: "#ff9505", // Bar color
       borderColor: "black", // Border color of the bars
       borderWidth: 1,
@@ -355,6 +508,9 @@ const config = {
 // Create the bar chart
 const ctx1 = document.getElementById("cropBarChart").getContext("2d");
 const cropBarChart = new Chart(ctx1, config);
+
+// Call the function when needed
+fetchTopCrops();
 
 document.addEventListener("DOMContentLoaded", async function () {
   const taskContent = document.querySelector(".task-content");
@@ -435,3 +591,56 @@ function calculateDueDate(due_date) {
     status: daysDiff > 0 ? "Left" : "Due",
   };
 }
+
+async function fetchCropSuggestions() {
+  const token = localStorage.getItem("token"); // Get the stored token for authorization
+  const userState = localStorage.getItem("state"); // Assuming the user's state is stored in localStorage
+
+  if (!token || !userState) {
+    alert("Authorization token or state is missing! Please log in.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "http://localhost/projects/farmhub/Backend/Crops/cropSuggestions.php", // Adjust the endpoint as needed
+      {
+        method: "POST", // Use POST to send state and get suggestions
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          state: userState, // Send the user's state to the backend
+        }),
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      console.log("Crop suggestions:", result.crops);
+
+      // Get the list element where we will add crop suggestions
+      const cropList = document.getElementById("crop-sugg");
+
+      // Clear the existing list (in case of previous data)
+      cropList.innerHTML = "";
+
+      // Add each crop suggestion to the list
+      result.crops.forEach((crop) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = crop.crop_name;
+        cropList.appendChild(listItem);
+      });
+    } else {
+      alert("Error fetching crop suggestions.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Something went wrong. Please try again later.");
+  }
+}
+
+// Call the function to fetch and display crop suggestions
+fetchCropSuggestions();

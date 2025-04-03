@@ -227,7 +227,6 @@ i {
   height: 100%;
 }
 #current-temp {
-  margin-top: 7%;
   color: var(--highlights);
   font-family: var(--secondary-font);
   font-weight: 600;
@@ -235,7 +234,7 @@ i {
   text-align: center;
 }
 #current-description {
-  margin-top: 5%;
+  margin-top: 3%;
   background-color: rgba(255, 255, 255, 0.664);
   border: 1px solid white;
   border-radius: 30px;

@@ -82,53 +82,95 @@ function calculateDaysLeft(harvestDate) {
   return daysLeft < 0 ? 0 : daysLeft; // Ensure no negative values
 }
 
-// Handle form submission
-cropForm.addEventListener("submit", function (event) {
+// Handle form submission for adding a crop
+cropForm.addEventListener("submit", async function (event) {
   event.preventDefault();
 
-  // Get form values
+  // Get form values from the input fields
   const cropName = document.getElementById("crop_name").value;
   const harvestDateInput = document.getElementById("harvest_date").value;
   const quantity = document.getElementById("quantity").value;
   const plotName = document.getElementById("plot").value || "Unknown Plot";
 
-  // Calculate days left
-  const daysLeft = calculateDaysLeft(harvestDateInput);
+  // Prepare the data to send to the backend
+  const data = {
+    crop_name: cropName,
+    harvest_date: harvestDateInput,
+    quantity: quantity,
+    plot: plotName,
+  };
 
-  // Create new crop div
-  const cropDiv = document.createElement("div");
-  cropDiv.classList.add("crop-item");
-  cropDiv.innerHTML = `
-      <h4>${cropName}</h4>
-      <h6>📅 Harvest Date: <span>${new Date(
-        harvestDateInput
-      ).toLocaleDateString("en-GB")}</span></h6>
-      <h6>⏳ Days Left: <span>${daysLeft} days</span></h6>
-      <h6>📦 Quantity: <span>${quantity}</span></h6>
-      <h6>📍 Plot: <span>${plotName}</span></h6>
-      <div class="crop-opts">
-        <button class="harv-crop-btn">
-          <i class="fas fa-shopping-basket"></i>
-        </button>
-        <button class="del-crop-btn">
-          <i class="fas fa-trash"></i>
-        </button>
-      </div>
-    `;
+  // Get the authorization token (assuming it's stored in localStorage)
+  const token = localStorage.getItem("token"); // Make sure to set token when the user logs in
 
-  // Append crop div to crop content
-  cropContent.appendChild(cropDiv);
-  updateNoCropsMessage();
+  if (!token) {
+    alert("Authorization token is missing! Please log in.");
+    return;
+  }
 
-  // Delete button functionality
-  cropDiv.querySelector(".del-crop-btn").addEventListener("click", function () {
-    cropDiv.remove();
-    updateNoCropsMessage();
-  });
+  try {
+    // Send the data to the backend
+    let response = await fetch(
+      "http://localhost/projects/farmhub/Backend/Crops/addCrop.php",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Add Authorization header with the token
+        },
+        body: JSON.stringify(data), // Send data to the backend
+      }
+    );
 
-  // Reset form and hide it
-  cropForm.reset();
-  cropForm.classList.add("hidden");
+    // Process the response from the backend
+    let result = await response.json();
+
+    if (result.success) {
+      const daysLeft = calculateDaysLeft(harvestDateInput);
+
+      alert("Crop added successfully!");
+      const cropDiv = document.createElement("div");
+      cropDiv.classList.add("crop-item");
+      cropDiv.innerHTML = `
+        <h4>${cropName}</h4>
+        <h6>📅 Harvest Date: <span>${new Date(
+          harvestDateInput
+        ).toLocaleDateString("en-GB")}</span></h6>
+        <h6>⏳ Days Left: <span>${daysLeft} days</span></h6>
+        <h6>📦 Quantity: <span>${quantity}</span></h6>
+        <h6>📍 Plot: <span>${plotName}</span></h6>
+        <div class="crop-opts">
+          <button class="harv-crop-btn">
+            <i class="fas fa-shopping-basket"></i>
+          </button>
+          <button class="del-crop-btn">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      `;
+
+      // Append the new crop to the crop content container
+      cropContent.appendChild(cropDiv);
+      updateNoCropsMessage();
+
+      // Delete button functionality
+      cropDiv
+        .querySelector(".del-crop-btn")
+        .addEventListener("click", function () {
+          cropDiv.remove();
+          updateNoCropsMessage();
+        });
+
+      // Reset the form and hide it
+      cropForm.reset();
+      cropForm.classList.add("hidden");
+    } else {
+      alert(result.error || "Failed to add crop.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Something went wrong. Please try again.");
+  }
 });
 
 // Function to find the correct "Days Left" inside a crop div
@@ -217,3 +259,157 @@ searchInput.addEventListener("input", function () {
     }
   });
 });
+
+// Function to delete a crop
+async function deleteCrop(cropId) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("Authorization token is missing! Please log in.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "http://localhost/projects/farmhub/Backend/Crops/deleteCrop.php",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          crop_id: cropId,
+        }),
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      alert("Crop deleted successfully!");
+    } else {
+      alert(result.error || "Failed to delete crop");
+    }
+  } catch (error) {
+    alert("Something went wrong. Please try again.");
+  }
+}
+
+// Function to harvest a crop based on its ID
+async function harvestCrop(cropId, cropQuantity, cropDiv) {
+  const token = localStorage.getItem("token"); // Get the auth token from localStorage
+  const harvestDate = new Date().toISOString().split("T")[0]; // Get the current date in YYYY-MM-DD format
+
+  try {
+    // Send the harvest request to the backend
+    let response = await fetch(
+      "http://localhost/projects/farmhub/Backend/Crops/harvestCrop.php",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          crop_id: cropId,
+          quantity: cropQuantity, // Assuming we are harvesting 1 unit for simplicity, but you can modify this as needed
+          harvest_date: harvestDate,
+        }),
+      }
+    );
+
+    // Parse the response from the backend
+    let result = await response.json();
+
+    if (result.success) {
+      alert("Crop harvested successfully!");
+      cropDiv.remove(); // Remove the harvested crop div from the UI
+      updateNoCropsMessage();
+      deleteCrop(cropId);
+    } else {
+      alert(result.error);
+    }
+  } catch (error) {
+    alert("Something went wrong. Please try again.");
+  }
+}
+
+// Function to fetch and display crops
+async function fetchCrops() {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("Authorization token is missing! Please log in.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "http://localhost/projects/farmhub/Backend/Crops/getCrop.php",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Pass token for authentication
+        },
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      result.crops.forEach((crop) => {
+        const daysLeft = calculateDaysLeft(crop.harvest_date);
+        const cropDiv = document.createElement("div");
+        cropDiv.classList.add("crop-item");
+        cropDiv.setAttribute("data-crop-id", crop.id); // Set crop ID in data attribute
+        cropDiv.innerHTML = `
+        <h4>${crop.crop_name}</h4>
+        <h6>📅 Harvest Date: <span>${new Date(
+          crop.harvest_date
+        ).toLocaleDateString("en-GB")}</span></h6>
+        <h6>⏳ Days Left: <span>${daysLeft} days</span></h6>
+        <h6>📦 Quantity: <span>${crop.quantity}</span></h6>
+        <h6>📍 Plot: <span>${crop.plot}</span></h6>
+        <div class="crop-opts">
+          <button class="harv-crop-btn">
+            <i class="fas fa-shopping-basket"></i>
+          </button>
+          <button class="del-crop-btn">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      `;
+
+        // Append the new crop to the crop content container
+        cropContent.appendChild(cropDiv);
+        updateNoCropsMessage();
+
+        // Event listener for delete button
+        cropDiv
+          .querySelector(".del-crop-btn")
+          .addEventListener("click", function () {
+            deleteCrop(crop.id); // Delete crop only based on its ID
+            cropDiv.remove(); // Remove crop div from the DOM
+            updateNoCropsMessage();
+          });
+
+        // Event listener for harvest button
+        cropDiv
+          .querySelector(".harv-crop-btn")
+          .addEventListener("click", function () {
+            harvestCrop(crop.id, crop.quantity, cropDiv); // Harvest the crop and pass the div to remove it from UI
+          });
+      });
+    } else {
+      alert(result.message || "No crops found");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Failed to fetch crops");
+  }
+}
+
+// Call the function to fetch crops when the page loads
+window.onload = fetchCrops;
