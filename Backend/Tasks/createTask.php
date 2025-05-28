@@ -13,7 +13,7 @@ if (!isset($data["title"], $data["description"], $data["due_date"], $data["statu
 $title = trim($data["title"]);
 $description = trim($data["description"]);
 $due_date = $data["due_date"];
-$status = $data["status"]; // Status will be provided by the frontend
+$status = $data["status"]; 
 $user_id = getUserIdFromToken(); // Function to get logged-in user ID
 
 // Insert task into the database

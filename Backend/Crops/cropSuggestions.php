@@ -1,13 +1,13 @@
 <?php
 // Database connection
-require "../config.php"; // Include your database connection here
+require "../config.php"; 
 
 // Get the state and current date from the POST request
 $data = json_decode(file_get_contents("php://input"), true);
 $state = $data['state']; // State from the frontend
 
 // Get the current month
-$currentMonth = date('n'); // Current month as a number (1-12)
+$currentMonth = date('n'); 
 
 // Query the crop_suggestions table to fetch crops based on state and the current month
 $sql = "

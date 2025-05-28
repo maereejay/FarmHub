@@ -59,8 +59,8 @@
         <section class="content">
           <section class="profile">
             <section class="share">
-              <a href=""> Preview</a>
-              <button>Share Link</button>
+              <a href="" id="preview"> Preview</a>
+              <button id="share-button">Share Link</button>
             </section>
             <section class="profile-sect">
               <div class="gradient">
@@ -69,9 +69,8 @@
                     id="editable-image"
                     src="../assets/profile/profileimg.jpg"
                     alt="Editable"
-                    onerror="this.src='../assets/profile/profileimg.jpg'"
                   />
-                  <div class="overlay" onclick="changeImage()">Edit Image</div>
+                  <div class="overlay">Edit Image</div>
                 </div>
                 <input
                   type="file"

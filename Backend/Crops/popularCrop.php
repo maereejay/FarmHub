@@ -4,7 +4,6 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
-// Handle preflight OPTIONS request (when sending complex requests like POST or PUT)
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit;
@@ -14,7 +13,7 @@ require "../config.php"; // Database connection
 require "../auth.php"; // Authentication script to get logged-in user ID
 
 // Get the logged-in user ID from token
-$user_id = getUserIdFromToken(); // Assuming this function fetches the logged-in user ID from token
+$user_id = getUserIdFromToken(); 
 
 // Get the posted user state
 $data = json_decode(file_get_contents("php://input"), true);
@@ -36,7 +35,7 @@ $sql = "
     LIMIT 5
 ";
 $stmt = $pdo->prepare($sql);
-$stmt->execute([$user_state]); // The state variable should be fetched from the user table
+$stmt->execute([$user_state]); 
 $topCrops = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Calculate the total number of plantings for the top 5 crops

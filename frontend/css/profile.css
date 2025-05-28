@@ -103,8 +103,9 @@ button {
   font-size: 90%;
   margin-top: 3%;
 }
-
-.active,
+.active {
+  background-color: var(--highlights);
+}
 .pages > button:hover {
   background-color: var(--highlights);
 }
@@ -534,6 +535,12 @@ i {
 }
 
 .post-tabs button:hover {
+  border: 2px solid var(--highlights);
+  color: white;
+  background-color: var(--highlights);
+}
+
+.post-tabs button.active {
   border: 2px solid var(--highlights);
   color: white;
   background-color: var(--highlights);

@@ -1,9 +1,8 @@
 <?php
-// Add CORS headers at the top of your PHP files
-header("Access-Control-Allow-Origin: *"); // Allow all origins
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Allow these HTTP methods
-header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Allow these headers (Content-Type and Authorization)
-header("Access-Control-Allow-Credentials: true"); // Allow credentials if needed
+header("Access-Control-Allow-Origin: *"); 
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); 
+header("Access-Control-Allow-Headers: Content-Type, Authorization"); 
+header("Access-Control-Allow-Credentials: true"); 
 
 // Handle preflight OPTIONS request (when sending complex requests like POST or PUT)
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -27,7 +26,7 @@ if (!isset($data["crop_name"], $data["harvest_date"], $data["quantity"])) {
 $crop_name = trim($data["crop_name"]);
 $harvest_date = $data["harvest_date"];
 $quantity = (int) $data["quantity"];
-$plot = isset($data["plot"]) ? trim($data["plot"]) : null; // Plot is optional
+$plot = isset($data["plot"]) ? trim($data["plot"]) : null;
 $user_id = getUserIdFromToken(); // Function to get the logged-in user ID
 
 // Insert crop into the database

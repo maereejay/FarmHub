@@ -1,9 +1,8 @@
 <?php
-// Add CORS headers at the top of your PHP files
-header("Access-Control-Allow-Origin: *"); // Allow all origins
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Allow these HTTP methods
-header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Allow these headers (Content-Type and Authorization)
-header("Access-Control-Allow-Credentials: true"); // Allow credentials if needed
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); 
+header("Access-Control-Allow-Headers: Content-Type, Authorization"); 
+header("Access-Control-Allow-Credentials: true"); 
 
 // Handle preflight OPTIONS request (when sending complex requests like POST or PUT)
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -18,7 +17,7 @@ require "../auth.php"; // Authentication script to get logged-in user ID
 $data = json_decode(file_get_contents("php://input"), true);
 
 // Get logged-in user ID from token
-$user_id = getUserIdFromToken();  // Assuming your `getUserIdFromToken()` function extracts the user ID from the JWT
+$user_id = getUserIdFromToken();  
 
 if ($user_id) {
     // Prepare the SQL query to update the status of all unread notifications to 'read' for the logged-in user

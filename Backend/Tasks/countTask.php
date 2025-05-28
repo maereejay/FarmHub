@@ -15,8 +15,6 @@ require "../config.php"; // Database connection
 
 $user_id = getUserIdFromToken(); // Authenticate and get user ID
 
-// Debugging: Log user_id to ensure it's being fetched correctly
-error_log("User ID: " . $user_id);
 
 try {
     // Check if user_id is valid
@@ -37,8 +35,6 @@ try {
     // Fetch the result
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Debugging: Log the result to ensure the data is fetched correctly
-    error_log("Fetched Result: " . print_r($result, true));
 
     if ($result) {
         // Return the task counts

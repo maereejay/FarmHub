@@ -1,11 +1,10 @@
 <?php
-// Add CORS headers at the top of your PHP files
-header("Access-Control-Allow-Origin: *"); // Allow all origins
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Allow these HTTP methods
-header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Allow these headers (Content-Type and Authorization)
-header("Access-Control-Allow-Credentials: true"); // Allow credentials if needed
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); 
+header("Access-Control-Allow-Headers: Content-Type, Authorization"); 
+header("Access-Control-Allow-Credentials: true");
 
-// Handle preflight OPTIONS request (when sending complex requests like POST or PUT)
+
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit;

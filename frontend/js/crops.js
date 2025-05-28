@@ -260,17 +260,90 @@ searchInput.addEventListener("input", function () {
   });
 });
 
-// Function to delete a crop
-async function deleteCrop(cropId) {
-  const token = localStorage.getItem("token");
+// Fetch and display crops on page load
+window.addEventListener("DOMContentLoaded", fetchCrops);
 
-  if (!token) {
-    alert("Authorization token is missing! Please log in.");
-    return;
-  }
+// ===================== Utility Functions ===================== //
+
+function showAlert(message) {
+  alert(message); // Replace with a toast/snackbar in production
+}
+
+function createCropDiv(crop) {
+  const cropDiv = document.createElement("div");
+  cropDiv.classList.add("crop-item");
+  cropDiv.dataset.cropId = crop.id;
+
+  const daysLeft = calculateDaysLeft(crop.harvest_date);
+  cropDiv.innerHTML = `
+    <h4>${crop.crop_name}</h4>
+    <h6>📅 Harvest Date: <span>${new Date(crop.harvest_date).toLocaleDateString(
+      "en-GB"
+    )}</span></h6>
+    <h6>⏳ Days Left: <span>${daysLeft} days</span></h6>
+    <h6>📦 Quantity: <span>${crop.quantity}</span></h6>
+    <h6>📍 Plot: <span>${crop.plot}</span></h6>
+    <div class="crop-opts">
+      <button class="harv-crop-btn"><i class="fas fa-shopping-basket"></i></button>
+      <button class="del-crop-btn"><i class="fas fa-trash"></i></button>
+    </div>
+  `;
+
+  // Bind event listeners
+  cropDiv.querySelector(".del-crop-btn").addEventListener("click", () => {
+    handleDeleteCrop(crop.id, cropDiv);
+  });
+
+  cropDiv.querySelector(".harv-crop-btn").addEventListener("click", () => {
+    handleHarvestCrop(crop.id, crop.quantity, cropDiv);
+  });
+
+  return cropDiv;
+}
+
+// ===================== Crop Operations ===================== //
+
+async function fetchCrops() {
+  const token = localStorage.getItem("token");
+  if (!token)
+    return showAlert("Authorization token is missing! Please log in.");
 
   try {
-    const response = await fetch(
+    const res = await fetch(
+      "http://localhost/projects/farmhub/Backend/Crops/getCrop.php",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.success && data.crops.length > 0) {
+      cropContent.innerHTML = ""; // Clear existing
+      data.crops.forEach((crop) => {
+        const cropDiv = createCropDiv(crop);
+        cropContent.appendChild(cropDiv);
+      });
+    } else {
+      updateNoCropsMessage();
+      showAlert(data.message || "No crops found.");
+    }
+  } catch (err) {
+    console.error(err);
+    showAlert("Failed to fetch crops");
+  }
+}
+
+async function handleDeleteCrop(cropId, cropDiv) {
+  const token = localStorage.getItem("token");
+  if (!token)
+    return showAlert("Authorization token is missing! Please log in.");
+
+  try {
+    const res = await fetch(
       "http://localhost/projects/farmhub/Backend/Crops/deleteCrop.php",
       {
         method: "DELETE",
@@ -278,32 +351,34 @@ async function deleteCrop(cropId) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          crop_id: cropId,
-        }),
+        body: JSON.stringify({ crop_id: cropId }),
       }
     );
 
-    const result = await response.json();
+    const result = await res.json();
 
     if (result.success) {
-      alert("Crop deleted successfully!");
+      cropDiv.remove(); // Remove from UI
+      updateNoCropsMessage();
+      showAlert("Crop deleted successfully!");
     } else {
-      alert(result.error || "Failed to delete crop");
+      showAlert(result.error || "Failed to delete crop");
     }
-  } catch (error) {
-    alert("Something went wrong. Please try again.");
+  } catch (err) {
+    console.error(err);
+    showAlert("Something went wrong. Please try again.");
   }
 }
 
-// Function to harvest a crop based on its ID
-async function harvestCrop(cropId, cropQuantity, cropDiv) {
-  const token = localStorage.getItem("token"); // Get the auth token from localStorage
-  const harvestDate = new Date().toISOString().split("T")[0]; // Get the current date in YYYY-MM-DD format
+async function handleHarvestCrop(cropId, quantity, cropDiv) {
+  const token = localStorage.getItem("token");
+  if (!token)
+    return showAlert("Authorization token is missing! Please log in.");
+
+  const harvestDate = new Date().toISOString().split("T")[0];
 
   try {
-    // Send the harvest request to the backend
-    let response = await fetch(
+    const res = await fetch(
       "http://localhost/projects/farmhub/Backend/Crops/harvestCrop.php",
       {
         method: "POST",
@@ -313,103 +388,23 @@ async function harvestCrop(cropId, cropQuantity, cropDiv) {
         },
         body: JSON.stringify({
           crop_id: cropId,
-          quantity: cropQuantity, // Assuming we are harvesting 1 unit for simplicity, but you can modify this as needed
+          quantity,
           harvest_date: harvestDate,
         }),
       }
     );
 
-    // Parse the response from the backend
-    let result = await response.json();
+    const result = await res.json();
 
     if (result.success) {
-      alert("Crop harvested successfully!");
-      cropDiv.remove(); // Remove the harvested crop div from the UI
+      cropDiv.remove(); // UI only, DB already handled it
       updateNoCropsMessage();
-      deleteCrop(cropId);
+      showAlert("Crop harvested successfully!");
     } else {
-      alert(result.error);
+      showAlert(result.error || "Failed to harvest crop");
     }
-  } catch (error) {
-    alert("Something went wrong. Please try again.");
+  } catch (err) {
+    console.error(err);
+    showAlert("Something went wrong. Please try again.");
   }
 }
-
-// Function to fetch and display crops
-async function fetchCrops() {
-  const token = localStorage.getItem("token");
-
-  if (!token) {
-    alert("Authorization token is missing! Please log in.");
-    return;
-  }
-
-  try {
-    const response = await fetch(
-      "http://localhost/projects/farmhub/Backend/Crops/getCrop.php",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Pass token for authentication
-        },
-      }
-    );
-
-    const result = await response.json();
-
-    if (result.success) {
-      result.crops.forEach((crop) => {
-        const daysLeft = calculateDaysLeft(crop.harvest_date);
-        const cropDiv = document.createElement("div");
-        cropDiv.classList.add("crop-item");
-        cropDiv.setAttribute("data-crop-id", crop.id); // Set crop ID in data attribute
-        cropDiv.innerHTML = `
-        <h4>${crop.crop_name}</h4>
-        <h6>📅 Harvest Date: <span>${new Date(
-          crop.harvest_date
-        ).toLocaleDateString("en-GB")}</span></h6>
-        <h6>⏳ Days Left: <span>${daysLeft} days</span></h6>
-        <h6>📦 Quantity: <span>${crop.quantity}</span></h6>
-        <h6>📍 Plot: <span>${crop.plot}</span></h6>
-        <div class="crop-opts">
-          <button class="harv-crop-btn">
-            <i class="fas fa-shopping-basket"></i>
-          </button>
-          <button class="del-crop-btn">
-            <i class="fas fa-trash"></i>
-          </button>
-        </div>
-      `;
-
-        // Append the new crop to the crop content container
-        cropContent.appendChild(cropDiv);
-        updateNoCropsMessage();
-
-        // Event listener for delete button
-        cropDiv
-          .querySelector(".del-crop-btn")
-          .addEventListener("click", function () {
-            deleteCrop(crop.id); // Delete crop only based on its ID
-            cropDiv.remove(); // Remove crop div from the DOM
-            updateNoCropsMessage();
-          });
-
-        // Event listener for harvest button
-        cropDiv
-          .querySelector(".harv-crop-btn")
-          .addEventListener("click", function () {
-            harvestCrop(crop.id, crop.quantity, cropDiv); // Harvest the crop and pass the div to remove it from UI
-          });
-      });
-    } else {
-      alert(result.message || "No crops found");
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    alert("Failed to fetch crops");
-  }
-}
-
-// Call the function to fetch crops when the page loads
-window.onload = fetchCrops;

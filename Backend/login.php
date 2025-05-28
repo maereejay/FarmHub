@@ -1,12 +1,11 @@
 <?php
 header("Content-Type: application/json");
-require "config.php"; // Ensure this file correctly connects to your DB
-require "../vendor/autoload.php"; // Ensure JWT library is installed
+require "config.php"; 
+require "../vendor/autoload.php"; 
 
 use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 
-$secret_key = "your_secret_key"; // Change this to a strong secret key
+$secret_key = "your_secret_key";
 
 $data = json_decode(file_get_contents("php://input"), true);
 

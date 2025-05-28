@@ -8,7 +8,7 @@ header("Content-Type: application/json");
 require "../auth.php"; // Ensure authentication is included
 require "../config.php"; // Database connection
 
-// Handle preflight (CORS)
+
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(200);
     exit;

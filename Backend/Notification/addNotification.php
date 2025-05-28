@@ -1,6 +1,6 @@
 <?php
-require "../config.php"; // Database connection
-require "../auth.php"; // Authentication script to get logged-in user ID
+require "../config.php"; 
+require "../auth.php";
 
 // Get logged-in user ID
 $user_id = getUserIdFromToken();

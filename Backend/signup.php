@@ -41,11 +41,11 @@ if ($stmt->execute([$first_name, $last_name, $email, $state, $password])) {
     $user_id = $pdo->lastInsertId();
 
     // Generate JWT Token
-    $secret_key = "your_secret_key"; // Change this to a secure key
+    $secret_key = "your_secret_key"; 
     $payload = [
         "user_id" => $user_id,
         "email" => $email,
-        "exp" => time() + (60 * 60 * 24) // Token expires in 24 hours
+        "exp" => time() + (60 * 60 * 24) 
     ];
     
     $jwt = JWT::encode($payload, $secret_key, "HS256");

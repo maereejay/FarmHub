@@ -1,0 +1,12 @@
+/vendor/
+/uploads/
+.env
+
+# IDE files
+.vscode/
+.idea/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db

@@ -5,11 +5,11 @@ require "config.php"; // Database connection
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-$secret_key = "your_secret_key"; // Ensure this matches login.php
+$secret_key = "your_secret_key"; 
 
 function getUserIdFromToken()
 {
-    global $pdo, $secret_key; // Include $secret_key inside function
+    global $pdo, $secret_key; 
 
     // Get Authorization header properly
     $headers = getallheaders();
